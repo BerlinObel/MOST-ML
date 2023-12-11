@@ -40,6 +40,7 @@ def get_files(function, basis):
         ts = max(ts, key=os.path.getctime)
     
     if not es_reac:
+        print(es_reac)
         es_reac = 'None'
     if not es_prod: 
         es_prod = 'None'
@@ -83,11 +84,9 @@ def collectAll():
     df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_react', 'wavelength_react', 'energy_prod', 'energy_react', 'energy_ts'])
     # Collect files
     for file in react_files:
-
         function, basis = read_functional_and_basis(file)
         if verbose: print('Collecting files for functional: {} and basis set: {}'.format(function, basis))
         es_reac, es_prod, prod, ts = get_files(function, basis)
-
         if verbose: print('Collecting data from files: {} {} {} {}'.format(es_reac, es_prod, prod, ts))
         if es_reac == 'None' or es_prod == 'None':
             osc_prod, wavelength_prod = [],[]
