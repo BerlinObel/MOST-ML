@@ -20,7 +20,7 @@ react_files = glob.glob(dft_path + 'react/azo_r_*.out')
 # Define function to read functional and basis set from file name
 def read_functional_and_basis(file):
     file = file.split('_')
-    functional = file[3]
+    functional = file[3].split('.')[0]
     basis = file[2]
     return functional, basis
 
@@ -77,7 +77,7 @@ def collectAll():
     # Initialize dataframe
     df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_react', 'wavelength_react', 'energy_prod', 'energy_react', 'energy_ts'])
     # Collect files
-    for file in react_files:
+    for file in react_files:z
         function, basis = read_functional_and_basis(file)
         if verbose: print('Collecting files for functional: {} and basis set: {}'.format(function, basis))
         es_reac, es_prod, prod, ts = get_files(function, basis)
