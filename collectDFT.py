@@ -77,7 +77,7 @@ def collectAll():
     # Initialize dataframe
     df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_react', 'wavelength_react', 'energy_prod', 'energy_react', 'energy_ts'])
     # Collect files
-    for file in react_files:z
+    for file in react_files:
         function, basis = read_functional_and_basis(file)
         if verbose: print('Collecting files for functional: {} and basis set: {}'.format(function, basis))
         es_reac, es_prod, prod, ts = get_files(function, basis)
