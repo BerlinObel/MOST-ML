@@ -27,7 +27,7 @@ def read_functional_and_basis(file):
 # Get all the files for a given basis set and functional
 def get_files(function, basis):
 
-    es_reac = glob.glob(dft_path_es + 'azo_r_'+basis+'*'+function+'*.out')
+    es_reac = glob.glob(dft_path_es + 'azo_r_'+basis+'*'+function+'*.out')[0]
     es_prod = glob.glob(dft_path_es + 'azo_p_'+basis+'*'+function+'*.out')
     # reac = glob.glob(dft_path + 'react/azo_r_*'+basis+'*'+function+'*.out')
     prod = glob.glob(dft_path + 'prod/azo_p_*'+basis+'*'+function+'*.out')
@@ -41,11 +41,11 @@ def get_files(function, basis):
     
     if not es_reac:
         print(es_reac)
-        es_reac = 'None'
+        es_reac = ['None']
     if not es_prod: 
-        es_prod = 'None'
+        es_prod = ['None']
     
-    return es_reac, es_prod, prod, ts
+    return es_reac[0], es_prod[0], prod, ts
 
 
 # Define function to collect DFT Energies
