@@ -52,10 +52,10 @@ basis = 'aug-cc-pVTZ'
 osc_prod, wavelength_prod = collectES(path_p_es)
 osc_react, wavelength_react = collectES(path_r_es)
 energy_prod = collectCASSCF(path_p)
-energy_react = collectCASSCF(path_r)
+energy_reac = collectCASSCF(path_r)
 energy_ts = collectCASSCF(path_ts)
 tbr_energy = energy_ts - energy_prod
-storage_energy = energy_prod - energy_react
+storage_energy = energy_prod - energy_reac
 # Print all nice and pretty
 print('File: {}'.format(file))
 print('Function: {}'.format(function))
@@ -65,7 +65,7 @@ print('Wavelengths (Prod): {}'.format(wavelength_prod))
 print('Oscillator Strengths (React): {}'.format(osc_react))
 print('Wavelengths (React): {}'.format(wavelength_react))
 print('Energy (Prod): {}'.format(energy_prod))
-print('Energy (React): {}'.format(energy_react))
+print('Energy (React): {}'.format(energy_reac))
 print('Energy (TS): {}'.format(energy_ts))
 print('TBR Energy: {}'.format(tbr_energy))
 print('Storage Energy: {}'.format(storage_energy))
