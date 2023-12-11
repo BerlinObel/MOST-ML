@@ -48,7 +48,8 @@ def collectDFT(file):
     lines = open(file).readlines()
     for line in lines:
         if 'Total Enthalpy' in line:
-            energy = float(line.split()[2])
+            print(line)
+            energy = float(line.split()[3])
 
     # Return Energy
     return energy
