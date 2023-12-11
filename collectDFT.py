@@ -35,9 +35,9 @@ def get_files(function, basis):
 
     # Return the newest files using glob if multiple files are found
     if len(prod) > 1:
-        prod = max(prod, key=os.path.getctime)
+        prod = [max(prod, key=os.path.getctime)]
     if len(ts) > 1:
-        ts = max(ts, key=os.path.getctime)
+        ts = [max(ts, key=os.path.getctime)]
     
     if not es_reac:
         print(es_reac)
@@ -45,7 +45,7 @@ def get_files(function, basis):
     if not es_prod: 
         es_prod = ['None']
     
-    return es_reac[0], es_prod[0], prod, ts
+    return es_reac[0], es_prod[0], prod[0], ts[0]
 
 
 # Define function to collect DFT Energies
