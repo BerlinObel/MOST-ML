@@ -44,6 +44,11 @@ def get_files(function, basis):
         es_reac = ['None']
     if not es_prod: 
         es_prod = ['None']
+    if not ts:
+        print(ts)
+        ts = ['None']
+    if not prod: 
+        prod = ['None']
     
     return es_reac[0], es_prod[0], prod[0], ts[0]
 
@@ -85,6 +90,7 @@ def collectAll():
     # Collect files
     for file in react_files:
         function, basis = read_functional_and_basis(file)
+        if basis == 'pc-3' or basis == 'pc-4' or basis == 'aug-pc-3' or basis == 'aug-pc-4' or basis == 'aug-pc-2': continue
         if verbose: print('Collecting files for functional: {} and basis set: {}'.format(function, basis))
         es_reac, es_prod, prod, ts = get_files(function, basis)
         if verbose: print('Collecting data from files: {} {} {} {}'.format(es_reac, es_prod, prod, ts))
