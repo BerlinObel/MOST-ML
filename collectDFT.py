@@ -107,8 +107,8 @@ def collectAll():
         if verbose: print('TBR Energy: {}'.format(tbr_energy))
         storage_energy = energy_prod - energy_reac
         if verbose: print('Storage Energy: {}'.format(storage_energy))
-        # Append to dataframe
-        df = df.concat({'file': file, 'function': function, 'basis': basis, 'osc_prod': osc_prod, 'wavelength_prod': wavelength_prod, 'osc_react': osc_reac, 'wavelength_react': wavelength_reac, 'energy_prod': energy_prod, 'energy_react': energy_reac, 'energy_ts': energy_ts, 'tbr_energy': tbr_energy, 'storage_energy': storage_energy}, ignore_index=True)
+        # Append to dataframe using concat
+        df = pd.concat([df, pd.DataFrame([[file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts]], columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts'])])
     return df
 
 # Run function
