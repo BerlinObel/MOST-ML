@@ -39,7 +39,7 @@ def get_files(function, basis):
     if len(ts) > 1:
         ts = max(ts, key=os.path.getctime)
     
-    return es_reac, es_prod, prod, ts
+    return es_reac[0], es_prod[0], prod, ts
 
 
 # Define function to collect DFT Energies
