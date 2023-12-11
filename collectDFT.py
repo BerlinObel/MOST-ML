@@ -27,8 +27,8 @@ def read_functional_and_basis(file):
 # Get all the files for a given basis set and functional
 def get_files(function, basis):
 
-    es_reac = glob.glob(dft_path_es + 'azo_r_*'+basis+'*'+function+'*.out')
-    es_prod = glob.glob(dft_path_es + 'azo_p_*'+basis+'*'+function+'*.out')
+    es_reac = glob.glob(dft_path_es + 'azo_r_'+basis+'*'+function+'*.out')
+    es_prod = glob.glob(dft_path_es + 'azo_p_'+basis+'*'+function+'*.out')
     # reac = glob.glob(dft_path + 'react/azo_r_*'+basis+'*'+function+'*.out')
     prod = glob.glob(dft_path + 'prod/azo_p_*'+basis+'*'+function+'*.out')
     ts = glob.glob(dft_path + 'ts/azo_ts_*'+basis+'*'+function+'*.out')
