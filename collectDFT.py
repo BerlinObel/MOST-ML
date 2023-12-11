@@ -33,8 +33,13 @@ def get_files(function, basis):
     prod = glob.glob(dft_path + 'prod/azo_p_*'+basis+'*'+function+'*.out')
     ts = glob.glob(dft_path + 'ts/azo_ts_*'+basis+'*'+function+'*.out')
 
-    # Return the newest files using glob incase of multiple files
-    return es_reac[-1], es_prod[-1], prod[-1], ts[-1]
+    # Return the newest files using glob if multiple files are found
+    if len(prod) > 1:
+        prod = max(prod, key=os.path.getctime)
+    if len(ts) > 1:
+        ts = max(ts, key=os.path.getctime)
+    
+    return es_reac, es_prod, prod, ts
 
 
 # Define function to collect DFT Energies
