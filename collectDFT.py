@@ -39,7 +39,12 @@ def get_files(function, basis):
     if len(ts) > 1:
         ts = max(ts, key=os.path.getctime)
     
-    return es_reac[0], es_prod[0], prod, ts
+    if not es_reac:
+        es_reac = 'None'
+    if not es_prod: 
+        es_prod = 'None'
+    
+    return es_reac, es_prod, prod, ts
 
 
 # Define function to collect DFT Energies
@@ -48,7 +53,6 @@ def collectDFT(file):
     lines = open(file).readlines()
     for line in lines:
         if 'Total Enthalpy' in line:
-            print(line)
             energy = float(line.split()[3])
 
     # Return Energy
@@ -79,14 +83,21 @@ def collectAll():
     df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_react', 'wavelength_react', 'energy_prod', 'energy_react', 'energy_ts'])
     # Collect files
     for file in react_files:
+
         function, basis = read_functional_and_basis(file)
         if verbose: print('Collecting files for functional: {} and basis set: {}'.format(function, basis))
         es_reac, es_prod, prod, ts = get_files(function, basis)
+
         if verbose: print('Collecting data from files: {} {} {} {}'.format(es_reac, es_prod, prod, ts))
-        osc_prod, wavelength_prod = collectES(es_prod)
-        if verbose: print('Oscillators and wavelengths for product: {} {}'.format(osc_prod, wavelength_prod))
-        osc_reac, wavelength_reac = collectES(es_reac)
-        if verbose: print('Oscillators and wavelengths for reactant: {} {}'.format(osc_reac, wavelength_reac))
+        if es_reac == 'None' or es_prod == 'None':
+            osc_prod, wavelength_prod = [],[]
+            osc_reac, wavelength_reac = [],[]
+            print('No ES files found for functional: {} and basis set: {}'.format(function, basis))
+        else:     
+            osc_prod, wavelength_prod = collectES(es_prod)
+            if verbose: print('Oscillators and wavelengths for product: {} {}'.format(osc_prod, wavelength_prod))
+            osc_reac, wavelength_reac = collectES(es_reac)
+            if verbose: print('Oscillators and wavelengths for reactant: {} {}'.format(osc_reac, wavelength_reac))
         energy_prod = collectDFT(prod)
         if verbose: print('Energy of product: {}'.format(energy_prod))
         energy_reac = collectDFT(file)
@@ -98,7 +109,7 @@ def collectAll():
         storage_energy = energy_prod - energy_reac
         if verbose: print('Storage Energy: {}'.format(storage_energy))
         # Append to dataframe
-        df = df.append({'file': file, 'function': function, 'basis': basis, 'osc_prod': osc_prod, 'wavelength_prod': wavelength_prod, 'osc_react': osc_reac, 'wavelength_react': wavelength_reac, 'energy_prod': energy_prod, 'energy_react': energy_reac, 'energy_ts': energy_ts, 'tbr_energy': tbr_energy, 'storage_energy': storage_energy}, ignore_index=True)
+        df = df.concat({'file': file, 'function': function, 'basis': basis, 'osc_prod': osc_prod, 'wavelength_prod': wavelength_prod, 'osc_react': osc_reac, 'wavelength_react': wavelength_reac, 'energy_prod': energy_prod, 'energy_react': energy_reac, 'energy_ts': energy_ts, 'tbr_energy': tbr_energy, 'storage_energy': storage_energy}, ignore_index=True)
     return df
 
 # Run function
