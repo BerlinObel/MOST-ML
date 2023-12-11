@@ -107,7 +107,10 @@ def collectAll():
         if verbose: print('Energy of product: {}'.format(energy_prod))
         energy_reac = collectDFT(file)
         if verbose: print('Energy of reactant: {}'.format(energy_reac))
-        energy_ts = collectDFT(ts)
+        if ts == 'None':
+            energy_ts = -1
+            print('No TS file found for functional: {} and basis set: {}'.format(function, basis))
+        else: energy_ts = collectDFT(ts)
         if verbose: print('Energy of transition state: {}'.format(energy_ts))
         tbr_energy = energy_ts - energy_prod
         if verbose: print('TBR Energy: {}'.format(tbr_energy))
