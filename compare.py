@@ -4,6 +4,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
+# print all of columns in pandas dataframe
+pd.set_option('display.max_columns', None)
+
+# Read in the dataframes
 df_dft = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/dft_results.pkl')
 df_casscf = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/casscf_results.pkl')
 
@@ -39,7 +43,7 @@ abs_error_storage_energy = np.zeros((len(basis), len(function)))
 for i in range(len(basis)):
     for j in range(len(function)):
         df_temp = df_dft[(df_dft['basis'] == basis[i]) & (df_dft['function'] == function[j])]
-        print(df_temp.head())
+        print(df_temp)
         abs_error_osc_prod[i][j] = np.mean(np.abs(df_temp['osc_prod'][0] - true_osc_prod))
         abs_error_osc_react[i][j] = np.mean(np.abs(df_temp['osc_react'][0] - true_osc_react))
         abs_error_wavelength_prod[i][j] = np.mean(np.abs(df_temp['wavelength_prod'][0] - true_wavelength_prod))
