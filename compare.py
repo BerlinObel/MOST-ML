@@ -50,7 +50,7 @@ for i in range(len(basis)):
             abs_error_osc_prod[i][j] = -1
         else:
             abs_error_osc_prod[i][j] = np.mean(np.abs(df_temp['osc_prod'][0][0] - true_osc_prod))
-        if len(df_temp['osc_reac']) == 0:
+        if len(df_temp['osc_reac'][0]) == 0:
             abs_error_osc_reac[i][j] = -1
         else:
             abs_error_osc_reac[i][j] = np.mean(np.abs(df_temp['osc_reac'][0][0] - true_osc_reac))
@@ -58,7 +58,7 @@ for i in range(len(basis)):
             abs_error_wavelength_prod[i][j] = -1
         else:
             abs_error_wavelength_prod[i][j] = np.mean(np.abs(df_temp['wavelength_prod'][0][0] - true_wavelength_prod))
-        if len(df_temp['wavelength_reac']) == 0:
+        if len(df_temp['wavelength_reac'][0]) == 0:
             abs_error_wavelength_reac[i][j] = -1
         else:
             abs_error_wavelength_reac[i][j] = np.mean(np.abs(df_temp['wavelength_reac'][0][0] - true_wavelength_reac))
