@@ -71,6 +71,6 @@ print('TBR Energy: {}'.format(tbr_energy))
 print('Storage Energy: {}'.format(storage_energy))
 
 
-df = pd.concat([df, pd.DataFrame([[file, function, basis, osc_prod, wavelength_prod, osc_react, wavelength_react, energy_prod, energy_reac, energy_ts]], columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts'])])
+df = pd.concat([df, pd.DataFrame([[file, function, basis, osc_prod, wavelength_prod, osc_react, wavelength_react, energy_prod, energy_reac, energy_ts,tbr_energy,storage_energy]], columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts','tbr_energy','storage_energy'])])
 
 df.to_pickle('casscf_results.pkl')
