@@ -25,7 +25,10 @@ true_energy_react = df_casscf['energy_react']
 true_energy_ts = df_casscf['energy_ts']
 true_tbr_energy = df_casscf['tbr_energy']
 true_storage_energy = df_casscf['storage_energy']
-
+print(true_osc_prod)
+print(true_osc_react)
+print(true_wavelength_prod)
+print(true_wavelength_react)
 
 # Create a 2d array with basis and function with absolute error for each property
 basis = df_dft['basis'].unique()
