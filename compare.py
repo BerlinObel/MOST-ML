@@ -76,7 +76,7 @@ properties = ['osc_prod', 'osc_react', 'wavelength_prod', 'wavelength_react', 'e
 # Plot the absolute error for each property as a seperate heatmap 
 for i in properties:
     fig, ax = plt.subplots(figsize=(10,10))
-    sns.heatmap(eval('abs_error_'+i), annot=True, ax=ax, xticklabels=function, yticklabels=basis, cmap='viridis')
+    sns.heatmap(eval('abs_error_'+i), annot=True, ax=ax, xticklabels=function, yticklabels=basis, cmap='viridis', fmt='.2f')
     ax.set_title('Absolute Error for '+i)
     ax.set_xlabel('Functional')
     ax.set_ylabel('Basis')
