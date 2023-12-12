@@ -15,27 +15,27 @@ df_casscf = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/cas
 # print(df_casscf.columns)
 
 
-# df columns: file, function, basis, osc_prod, wavelength_prod, osc_react, wavelength_react, energy_prod, energy_react, energy_ts, tbr_energy, storage_energy 
+# df columns: file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy 
 true_osc_prod = df_casscf['osc_prod'].values[0][0]
-true_osc_react = df_casscf['osc_reac'].values[0][0]
+true_osc_reac = df_casscf['osc_reac'].values[0][0]
 true_wavelength_prod = df_casscf['wavelength_prod'].values[0][0]
-true_wavelength_react = df_casscf['wavelength_reac'].values[0][0]
+true_wavelength_reac = df_casscf['wavelength_reac'].values[0][0]
 true_energy_prod = df_casscf['energy_prod'].values[0]
-true_energy_react = df_casscf['energy_reac'].values[0]
+true_energy_reac = df_casscf['energy_reac'].values[0]
 true_energy_ts = df_casscf['energy_ts'].values[0]
 true_tbr_energy = df_casscf['tbr_energy'].values[0]
 true_storage_energy = df_casscf['storage_energy'].values[0]
 
-print(true_osc_prod, true_osc_react, true_wavelength_prod, true_wavelength_react, true_energy_prod, true_energy_react, true_energy_ts, true_tbr_energy, true_storage_energy)
+print(true_osc_prod, true_osc_reac, true_wavelength_prod, true_wavelength_reac, true_energy_prod, true_energy_reac, true_energy_ts, true_tbr_energy, true_storage_energy)
 # Create a 2d array with basis and function with absolute error for each property
 basis = df_dft['basis'].unique()
 function = df_dft['function'].unique()
 abs_error_osc_prod = np.zeros((len(basis), len(function)))
-abs_error_osc_react = np.zeros((len(basis), len(function)))
+abs_error_osc_reac = np.zeros((len(basis), len(function)))
 abs_error_wavelength_prod = np.zeros((len(basis), len(function)))
-abs_error_wavelength_react = np.zeros((len(basis), len(function)))
+abs_error_wavelength_reac = np.zeros((len(basis), len(function)))
 abs_error_energy_prod = np.zeros((len(basis), len(function)))
-abs_error_energy_react = np.zeros((len(basis), len(function)))
+abs_error_energy_reac = np.zeros((len(basis), len(function)))
 abs_error_energy_ts = np.zeros((len(basis), len(function)))
 abs_error_tbr_energy = np.zeros((len(basis), len(function)))
 abs_error_storage_energy = np.zeros((len(basis), len(function)))
@@ -50,29 +50,29 @@ for i in range(len(basis)):
             abs_error_osc_prod[i][j] = -1
         else:
             abs_error_osc_prod[i][j] = np.mean(np.abs(df_temp['osc_prod'][0][0] - true_osc_prod))
-        if len(df_temp['osc_react']) == 0:
-            abs_error_osc_react[i][j] = -1
+        if len(df_temp['osc_reac']) == 0:
+            abs_error_osc_reac[i][j] = -1
         else:
-            abs_error_osc_react[i][j] = np.mean(np.abs(df_temp['osc_react'][0] - true_osc_react))
+            abs_error_osc_reac[i][j] = np.mean(np.abs(df_temp['osc_reac'][0] - true_osc_reac))
         if len(df_temp['wavelength_prod'][0]) == 0:
             abs_error_wavelength_prod[i][j] = -1
         else:
             abs_error_wavelength_prod[i][j] = np.mean(np.abs(df_temp['wavelength_prod'][0][0] - true_wavelength_prod))
-        if len(df_temp['wavelength_react']) == 0:
-            abs_error_wavelength_react[i][j] = -1
+        if len(df_temp['wavelength_reac']) == 0:
+            abs_error_wavelength_reac[i][j] = -1
         else:
-            abs_error_wavelength_react[i][j] = np.mean(np.abs(df_temp['wavelength_react'][0] - true_wavelength_react))
+            abs_error_wavelength_reac[i][j] = np.mean(np.abs(df_temp['wavelength_reac'][0] - true_wavelength_reac))
 
-        # print(df_temp['energy_react'],df_temp['storage_energy'], df_temp['tbr_energy'])
+        # print(df_temp['energy_reac'],df_temp['storage_energy'], df_temp['tbr_energy'])
         abs_error_energy_prod[i][j] = np.abs(df_temp['energy_prod'] - true_energy_prod)
-        abs_error_energy_react[i][j] = np.abs(df_temp['energy_react'] - true_energy_react)
+        abs_error_energy_reac[i][j] = np.abs(df_temp['energy_reac'] - true_energy_reac)
         abs_error_energy_ts[i][j] = np.abs(df_temp['energy_ts'] - true_energy_ts)
         abs_error_tbr_energy[i][j] = np.abs(df_temp['tbr_energy'] - true_tbr_energy)
         abs_error_storage_energy[i][j] = np.abs(df_temp['storage_energy'] - true_storage_energy)
 
 
 # All examined properties
-properties = ['osc_prod', 'osc_react', 'wavelength_prod', 'wavelength_react', 'energy_prod', 'energy_react', 'energy_ts', 'tbr_energy', 'storage_energy']
+properties = ['osc_prod', 'osc_reac', 'wavelength_prod', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy']
 # Plot the absolute error for each property as a seperate heatmap  
 # Handle the error catch for the properties that are not NaN
 for i in properties:
@@ -88,16 +88,16 @@ for i in properties:
 #Save the absolute error dataframes as csv files
 df_abs_error_osc_prod = pd.DataFrame(abs_error_osc_prod, index=basis, columns=function)
 df_abs_error_osc_prod.to_csv('abs_error_osc_prod.csv')
-df_abs_error_osc_react = pd.DataFrame(abs_error_osc_react, index=basis, columns=function)
-df_abs_error_osc_react.to_csv('abs_error_osc_react.csv')
+df_abs_error_osc_reac = pd.DataFrame(abs_error_osc_reac, index=basis, columns=function)
+df_abs_error_osc_reac.to_csv('abs_error_osc_reac.csv')
 df_abs_error_wavelength_prod = pd.DataFrame(abs_error_wavelength_prod, index=basis, columns=function)
 df_abs_error_wavelength_prod.to_csv('abs_error_wavelength_prod.csv')
-df_abs_error_wavelength_react = pd.DataFrame(abs_error_wavelength_react, index=basis, columns=function)
-df_abs_error_wavelength_react.to_csv('abs_error_wavelength_react.csv')
+df_abs_error_wavelength_reac = pd.DataFrame(abs_error_wavelength_reac, index=basis, columns=function)
+df_abs_error_wavelength_reac.to_csv('abs_error_wavelength_reac.csv')
 df_abs_error_energy_prod = pd.DataFrame(abs_error_energy_prod, index=basis, columns=function)
 df_abs_error_energy_prod.to_csv('abs_error_energy_prod.csv')
-df_abs_error_energy_react = pd.DataFrame(abs_error_energy_react, index=basis, columns=function)
-df_abs_error_energy_react.to_csv('abs_error_energy_react.csv')
+df_abs_error_energy_reac = pd.DataFrame(abs_error_energy_reac, index=basis, columns=function)
+df_abs_error_energy_reac.to_csv('abs_error_energy_reac.csv')
 df_abs_error_energy_ts = pd.DataFrame(abs_error_energy_ts, index=basis, columns=function)
 df_abs_error_energy_ts.to_csv('abs_error_energy_ts.csv')
 df_abs_error_tbr_energy = pd.DataFrame(abs_error_tbr_energy, index=basis, columns=function)

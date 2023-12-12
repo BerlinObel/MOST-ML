@@ -14,7 +14,7 @@ dft_path_es = '/groups/kemi/obel/azobenzene/compchem/benchmark/esDynamics/done/'
 dft_path = '/groups/kemi/obel/azobenzene/compchem/done/'
 
 # Initial files to collect
-react_files = glob.glob(dft_path + 'react/azo_r_*.out')
+reac_files = glob.glob(dft_path + 'reac/azo_r_*.out')
 
 
 # Define function to read functional and basis set from file name
@@ -29,7 +29,7 @@ def get_files(function, basis):
 
     es_reac = glob.glob(dft_path_es + 'azo_r_'+basis+'*'+function+'*.out')
     es_prod = glob.glob(dft_path_es + 'azo_p_'+basis+'*'+function+'*.out')
-    # reac = glob.glob(dft_path + 'react/azo_r_*'+basis+'*'+function+'*.out')
+    # reac = glob.glob(dft_path + 'reac/azo_r_*'+basis+'*'+function+'*.out')
     prod = glob.glob(dft_path + 'prod/azo_p_*'+basis+'*'+function+'*.out')
     ts = glob.glob(dft_path + 'ts/azo_ts_*'+basis+'*'+function+'*.out')
 
@@ -83,12 +83,12 @@ def collectES(file):
 
 
 # Define function to collect all results in a dataframe
-# df columns: file, function, basis, osc_prod, wavelength_prod, osc_react, wavelength_react, energy_prod, energy_react, energy_ts, tbr_energy, storage_energy 
+# df columns: file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy 
 def collectAll():
     # Initialize dataframe
-    df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_react', 'wavelength_react', 'energy_prod', 'energy_react', 'energy_ts', 'tbr_energy', 'storage_energy'])
+    df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy'])
     # Collect files
-    for file in react_files:
+    for file in reac_files:
         function, basis = read_functional_and_basis(file)
         if basis == 'pc-3' or basis == 'pc-4' or basis == 'aug-pc-3' or basis == 'aug-pc-4' or basis == 'aug-pc-2': continue
         if verbose: print('Collecting files for functional: {} and basis set: {}'.format(function, basis))
@@ -102,11 +102,11 @@ def collectAll():
             osc_prod, wavelength_prod = collectES(es_prod)
             if verbose: print('Oscillators and wavelengths for product: {} {}'.format(osc_prod, wavelength_prod))
             osc_reac, wavelength_reac = collectES(es_reac)
-            if verbose: print('Oscillators and wavelengths for reactant: {} {}'.format(osc_reac, wavelength_reac))
+            if verbose: print('Oscillators and wavelengths for reacant: {} {}'.format(osc_reac, wavelength_reac))
         energy_prod = collectDFT(prod)
         if verbose: print('Energy of product: {}'.format(energy_prod))
         energy_reac = collectDFT(file)
-        if verbose: print('Energy of reactant: {}'.format(energy_reac))
+        if verbose: print('Energy of reacant: {}'.format(energy_reac))
         if ts == 'None':
             energy_ts = -1
             print('No TS file found for functional: {} and basis set: {}'.format(function, basis))
