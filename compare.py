@@ -16,15 +16,15 @@ df_casscf = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/cas
 
 
 # df columns: file, function, basis, osc_prod, wavelength_prod, osc_react, wavelength_react, energy_prod, energy_react, energy_ts, tbr_energy, storage_energy 
-true_osc_prod = df_casscf['osc_prod'].values
-true_osc_react = df_casscf['osc_react'].values
-true_wavelength_prod = df_casscf['wavelength_prod'].values
-true_wavelength_react = df_casscf['wavelength_react'].values
-true_energy_prod = df_casscf['energy_prod'].values
-true_energy_react = df_casscf['energy_react'].values
-true_energy_ts = df_casscf['energy_ts'].values
-true_tbr_energy = df_casscf['tbr_energy'].values
-true_storage_energy = df_casscf['storage_energy'].values
+true_osc_prod = df_casscf['osc_prod'].values[0]
+true_osc_react = df_casscf['osc_react'].values[0]
+true_wavelength_prod = df_casscf['wavelength_prod'].values[0]
+true_wavelength_react = df_casscf['wavelength_react'].values[0]
+true_energy_prod = df_casscf['energy_prod'].values[0]
+true_energy_react = df_casscf['energy_react'].values[0]
+true_energy_ts = df_casscf['energy_ts'].values[0]
+true_tbr_energy = df_casscf['tbr_energy'].values[0]
+true_storage_energy = df_casscf['storage_energy'].values[0]
 
 print(true_osc_prod, true_osc_react, true_wavelength_prod, true_wavelength_react, true_energy_prod, true_energy_react, true_energy_ts, true_tbr_energy, true_storage_energy)
 # Create a 2d array with basis and function with absolute error for each property
