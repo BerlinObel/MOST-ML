@@ -14,7 +14,7 @@ dft_path_es = '/groups/kemi/obel/azobenzene/compchem/benchmark/esDynamics/done/'
 dft_path = '/groups/kemi/obel/azobenzene/compchem/done/'
 
 # Initial files to collect
-reac_files = glob.glob(dft_path + 'reac/azo_r_*.out')
+reac_files = glob.glob(dft_path + 'react/azo_r_*.out')
 
 
 # Define function to read functional and basis set from file name
