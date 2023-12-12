@@ -66,18 +66,42 @@ for i in range(len(basis)):
         else:
             abs_error_wavelength_reac[i][j] = np.mean(np.abs(df_temp['wavelength_reac'][0][0] - true_wavelength_reac))
 
-        # print(df_temp['energy_reac'],df_temp['storage_energy'], df_temp['tbr_energy'])
-        abs_error_energy_prod[i][j] = np.abs(df_temp['energy_prod'] - true_energy_prod)
-        abs_error_energy_reac[i][j] = np.abs(df_temp['energy_reac'] - true_energy_reac)
-        abs_error_energy_ts[i][j] = np.abs(df_temp['energy_ts'] - true_energy_ts)
-        abs_error_tbr_energy[i][j] = np.abs(df_temp['tbr_energy'] - true_tbr_energy)
-        abs_error_storage_energy[i][j] = np.abs(df_temp['storage_energy'] - true_storage_energy)
+
+        if len(df_temp['energy_prod']) == 0:
+            abs_error_energy_prod[i][j] = -1
+        else:   
+            abs_error_energy_prod[i][j] = np.mean(np.abs(df_temp['energy_prod'] - true_energy_prod))
+        if len(df_temp['energy_reac']) == 0:  
+            abs_error_energy_reac[i][j] = -1   
+        else:
+            abs_error_energy_reac[i][j] = np.mean(np.abs(df_temp['energy_reac'] - true_energy_reac))
+        if len(df_temp['energy_ts']) == 0:
+            abs_error_energy_ts[i][j] = -1
+        else:
+            abs_error_energy_ts[i][j] = np.mean(np.abs(df_temp['energy_ts'] - true_energy_ts))
+        if len(df_temp['tbr_energy']) == 0:
+            abs_error_tbr_energy[i][j] = -1
+        else:
+            abs_error_tbr_energy[i][j] = np.mean(np.abs(df_temp['tbr_energy'] - true_tbr_energy))
+
+        if len(df_temp['storage_energy']) == 0:
+            abs_error_storage_energy[i][j] = -1
+        else:
+            abs_error_storage_energy[i][j] = np.mean(np.abs(df_temp['storage_energy'] - true_storage_energy))
+
+        # abs_error_energy_prod[i][j] = np.abs(df_temp['energy_prod'] - true_energy_prod)
+        # abs_error_energy_reac[i][j] = np.abs(df_temp['energy_reac'] - true_energy_reac)
+        # abs_error_energy_ts[i][j] = np.abs(df_temp['energy_ts'] - true_energy_ts)
+        # abs_error_tbr_energy[i][j] = np.abs(df_temp['tbr_energy'] - true_tbr_energy)
+        # abs_error_storage_energy[i][j] = np.abs(df_temp['storage_energy'] - true_storage_energy)
 
 
 # All examined properties
 properties = ['osc_prod', 'osc_reac', 'wavelength_prod', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy']
 # Plot the absolute error for each property as a seperate heatmap  
 # Handle the error catch for the properties that are not NaN
+
+
 for i in properties:
     fig, ax = plt.subplots(figsize=(10,10))
     sns.heatmap(eval('abs_error_'+i), annot=True, ax=ax, xticklabels=function, yticklabels=basis, cmap='viridis', fmt='.2f')
