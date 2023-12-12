@@ -11,8 +11,8 @@ pd.set_option('display.max_columns', None)
 df_dft = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/dft_results.pkl')
 df_casscf = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/casscf_results.pkl')
 
-print(df_dft.columns)
-print(df_casscf.columns)
+# print(df_dft.columns)
+# print(df_casscf.columns)
 
 
 # df columns: file, function, basis, osc_prod, wavelength_prod, osc_react, wavelength_react, energy_prod, energy_react, energy_ts, tbr_energy, storage_energy 
@@ -63,7 +63,7 @@ for i in range(len(basis)):
         else:
             abs_error_wavelength_react[i][j] = np.mean(np.abs(df_temp['wavelength_react'][0] - true_wavelength_react))
 
-        print(df_temp['energy_react'],df_temp['storage_energy'], df_temp['tbr_energy'])
+        # print(df_temp['energy_react'],df_temp['storage_energy'], df_temp['tbr_energy'])
         abs_error_energy_prod[i][j] = np.abs(df_temp['energy_prod'] - true_energy_prod)
         abs_error_energy_react[i][j] = np.abs(df_temp['energy_react'] - true_energy_react)
         abs_error_energy_ts[i][j] = np.abs(df_temp['energy_ts'] - true_energy_ts)
