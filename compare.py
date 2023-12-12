@@ -28,8 +28,11 @@ true_storage_energy = df_casscf['storage_energy'].values[0]
 
 print(true_osc_prod, true_osc_reac, true_wavelength_prod, true_wavelength_reac, true_energy_prod, true_energy_reac, true_energy_ts, true_tbr_energy, true_storage_energy)
 # Create a 2d array with basis and function with absolute error for each property
-basis = df_dft['basis'].unique()
-function = df_dft['function'].unique()
+basissets = df_dft['basis'].unique()
+basis = ['STO-3G', '6-31++Gdp', '6-311++Gdp', 'pc-0', 'pc-1', 'pc-2', 'aug-pc-0', 'aug-pc-1']
+functionals = df_dft['function'].unique()
+function = ['LSD','PBE0','B3LYP','B3PW91','CAM-B3LYP','wB97X-D3','M062X','CAM-B3LYP-D4','B2PLYP']
+            
 abs_error_osc_prod = np.zeros((len(basis), len(function)))
 abs_error_osc_reac = np.zeros((len(basis), len(function)))
 abs_error_wavelength_prod = np.zeros((len(basis), len(function)))
@@ -83,6 +86,17 @@ for i in properties:
     ax.set_ylabel('Basis')
     plt.savefig('abs_error_'+i+'.png', dpi=300)
     plt.close()
+
+# calculate the mean absolute error for each basis and functional 
+mean_abs_error = np.zeros((len(basis), len(function)))
+RMS_abs_error = np.zeros((len(basis), len(function)))
+for i in range(len(basis)):
+    for j in range(len(function)):
+        mean_abs_error[i][j] = np.mean(eval('abs_error_'+properties)[i][j])
+        RMS_abs_error[i][j] = np.sqrt(np.mean(np.square(eval('abs_error_'+properties)[i][j])))
+# Plot the mean absolute error for each property as a seperate heatmap
+
+
 
 
 #Save the absolute error dataframes as csv files
