@@ -26,7 +26,7 @@ true_energy_ts = df_casscf['energy_ts']
 true_tbr_energy = df_casscf['tbr_energy']
 true_storage_energy = df_casscf['storage_energy']
 
-
+print(true_osc_prod, true_osc_react, true_wavelength_prod, true_wavelength_react, true_energy_prod, true_energy_react, true_energy_ts, true_tbr_energy, true_storage_energy)
 # Create a 2d array with basis and function with absolute error for each property
 basis = df_dft['basis'].unique()
 function = df_dft['function'].unique()
@@ -63,7 +63,7 @@ for i in range(len(basis)):
         else:
             abs_error_wavelength_react[i][j] = np.mean(np.abs(df_temp['wavelength_react'][0] - true_wavelength_react))
 
-
+        print(df_temp['energy_react'],df_temp['storage_energy'], df_temp['tbr_energy'])
         abs_error_energy_prod[i][j] = np.abs(df_temp['energy_prod'] - true_energy_prod)
         abs_error_energy_react[i][j] = np.abs(df_temp['energy_react'] - true_energy_react)
         abs_error_energy_ts[i][j] = np.abs(df_temp['energy_ts'] - true_energy_ts)
@@ -73,7 +73,8 @@ for i in range(len(basis)):
 
 # All examined properties
 properties = ['osc_prod', 'osc_react', 'wavelength_prod', 'wavelength_react', 'energy_prod', 'energy_react', 'energy_ts', 'tbr_energy', 'storage_energy']
-# Plot the absolute error for each property as a seperate heatmap 
+# Plot the absolute error for each property as a seperate heatmap  
+# Handle the error catch for the properties that are not NaN
 for i in properties:
     fig, ax = plt.subplots(figsize=(10,10))
     sns.heatmap(eval('abs_error_'+i), annot=True, ax=ax, xticklabels=function, yticklabels=basis, cmap='viridis', fmt='.2f')
