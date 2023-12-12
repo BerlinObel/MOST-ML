@@ -21,3 +21,42 @@ true_energy_react = df_casscf['energy_react']
 true_energy_ts = df_casscf['energy_ts']
 true_tbr_energy = df_casscf['tbr_energy']
 true_storage_energy = df_casscf['storage_energy']
+
+
+# Create a 2d array with basis and function with absolute error for each property
+basis = df_dft['basis'].unique()
+function = df_dft['function'].unique()
+abs_error_osc_prod = np.zeros((len(basis), len(function)))
+abs_error_osc_react = np.zeros((len(basis), len(function)))
+abs_error_wavelength_prod = np.zeros((len(basis), len(function)))
+abs_error_wavelength_react = np.zeros((len(basis), len(function)))
+abs_error_energy_prod = np.zeros((len(basis), len(function)))
+abs_error_energy_react = np.zeros((len(basis), len(function)))
+abs_error_energy_ts = np.zeros((len(basis), len(function)))
+abs_error_tbr_energy = np.zeros((len(basis), len(function)))
+abs_error_storage_energy = np.zeros((len(basis), len(function)))
+
+for i in range(len(basis)):
+    for j in range(len(function)):
+        df_temp = df_dft[(df_dft['basis'] == basis[i]) & (df_dft['function'] == function[j])]
+        abs_error_osc_prod[i][j] = np.mean(np.abs(df_temp['osc_prod'] - true_osc_prod))
+        abs_error_osc_react[i][j] = np.mean(np.abs(df_temp['osc_react'] - true_osc_react))
+        abs_error_wavelength_prod[i][j] = np.mean(np.abs(df_temp['wavelength_prod'] - true_wavelength_prod))
+        abs_error_wavelength_react[i][j] = np.mean(np.abs(df_temp['wavelength_react'] - true_wavelength_react))
+        abs_error_energy_prod[i][j] = np.mean(np.abs(df_temp['energy_prod'] - true_energy_prod))
+        abs_error_energy_react[i][j] = np.mean(np.abs(df_temp['energy_react'] - true_energy_react))
+        abs_error_energy_ts[i][j] = np.mean(np.abs(df_temp['energy_ts'] - true_energy_ts))
+        abs_error_tbr_energy[i][j] = np.mean(np.abs(df_temp['tbr_energy'] - true_tbr_energy))
+        abs_error_storage_energy[i][j] = np.mean(np.abs(df_temp['storage_energy'] - true_storage_energy))
+
+# Plot the absolute error for each property as a heatmap
+fig, ax = plt.subplots(3, 3, figsize=(15, 15))
+sns.heatmap(abs_error_osc_prod, annot=True, ax=ax[0,0])
+sns.heatmap(abs_error_osc_react, annot=True, ax=ax[0,1])
+sns.heatmap(abs_error_wavelength_prod, annot=True, ax=ax[0,2])
+sns.heatmap(abs_error_wavelength_react, annot=True, ax=ax[1,0])
+sns.heatmap(abs_error_energy_prod, annot=True, ax=ax[1,1])
+sns.heatmap(abs_error_energy_react, annot=True, ax=ax[1,2])
+sns.heatmap(abs_error_energy_ts, annot=True, ax=ax[2,0])
+sns.heatmap(abs_error_tbr_energy, annot=True, ax=ax[2,1])
+sns.heatmap(abs_error_storage_energy, annot=True, ax=ax[2,2])
