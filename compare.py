@@ -11,7 +11,7 @@ pd.set_option('display.max_columns', None)
 df_dft = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/dft_results.pkl')
 df_casscf = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/casscf_results.pkl')
 
-#print(df_dft.columns)
+print(df_dft.columns)
 print(df_casscf.columns)
 
 
