@@ -17,11 +17,11 @@ df_casscf = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/cas
 
 # df columns: file, function, basis, osc_prod, wavelength_prod, osc_react, wavelength_react, energy_prod, energy_react, energy_ts, tbr_energy, storage_energy 
 true_osc_prod = df_casscf['osc_prod'].values[0]
-true_osc_react = df_casscf['osc_react'].values[0]
+true_osc_react = df_casscf['osc_reac'].values[0]
 true_wavelength_prod = df_casscf['wavelength_prod'].values[0]
-true_wavelength_react = df_casscf['wavelength_react'].values[0]
+true_wavelength_react = df_casscf['wavelength_reac'].values[0]
 true_energy_prod = df_casscf['energy_prod'].values[0]
-true_energy_react = df_casscf['energy_react'].values[0]
+true_energy_react = df_casscf['energy_reac'].values[0]
 true_energy_ts = df_casscf['energy_ts'].values[0]
 true_tbr_energy = df_casscf['tbr_energy'].values[0]
 true_storage_energy = df_casscf['storage_energy'].values[0]

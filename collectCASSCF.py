@@ -19,7 +19,7 @@ path_ts = path + 'azo_ts_casscf.out'
 
 # Initial dataframe
 # df columns: file, function, basis, osc_prod, wavelength_prod, osc_react, wavelength_react, energy_prod, energy_react, energy_ts, tbr_energy, storage_energy 
-df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_react', 'wavelength_react', 'energy_prod', 'energy_react', 'energy_ts', 'tbr_energy', 'storage_energy'])
+df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy'])
 
 def collectES(file):
     # Read in DFT data
