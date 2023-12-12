@@ -46,9 +46,9 @@ for i in range(len(basis)):
         df_temp = df_dft[(df_dft['basis'] == basis[i]) & (df_dft['function'] == function[j])]
 
         abs_error_osc_prod[i][j] = np.mean(np.abs(df_temp['osc_prod'][0][0] - true_osc_prod))
-        abs_error_osc_react[i][j] = np.mean(np.abs(df_temp['osc_react'][0][0] - true_osc_react))
+        abs_error_osc_react[i][j] = np.mean(np.abs(df_temp['osc_react'][0] - true_osc_react))
         abs_error_wavelength_prod[i][j] = np.mean(np.abs(df_temp['wavelength_prod'][0][0] - true_wavelength_prod))
-        abs_error_wavelength_react[i][j] = np.mean(np.abs(df_temp['wavelength_react'][0][0] - true_wavelength_react))
+        abs_error_wavelength_react[i][j] = np.mean(np.abs(df_temp['wavelength_react'][0] - true_wavelength_react))
         abs_error_energy_prod[i][j] = np.mean(np.abs(df_temp['energy_prod'] - true_energy_prod))
         abs_error_energy_react[i][j] = np.mean(np.abs(df_temp['energy_react'] - true_energy_react))
         abs_error_energy_ts[i][j] = np.mean(np.abs(df_temp['energy_ts'] - true_energy_ts))
