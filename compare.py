@@ -53,7 +53,7 @@ for i in range(len(basis)):
         if len(df_temp['osc_reac']) == 0:
             abs_error_osc_reac[i][j] = -1
         else:
-            abs_error_osc_reac[i][j] = np.mean(np.abs(df_temp['osc_reac'][0] - true_osc_reac))
+            abs_error_osc_reac[i][j] = np.mean(np.abs(df_temp['osc_reac'][0][0] - true_osc_reac))
         if len(df_temp['wavelength_prod'][0]) == 0:
             abs_error_wavelength_prod[i][j] = -1
         else:
@@ -61,7 +61,7 @@ for i in range(len(basis)):
         if len(df_temp['wavelength_reac']) == 0:
             abs_error_wavelength_reac[i][j] = -1
         else:
-            abs_error_wavelength_reac[i][j] = np.mean(np.abs(df_temp['wavelength_reac'][0] - true_wavelength_reac))
+            abs_error_wavelength_reac[i][j] = np.mean(np.abs(df_temp['wavelength_reac'][0][0] - true_wavelength_reac))
 
         # print(df_temp['energy_reac'],df_temp['storage_energy'], df_temp['tbr_energy'])
         abs_error_energy_prod[i][j] = np.abs(df_temp['energy_prod'] - true_energy_prod)

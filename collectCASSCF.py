@@ -18,7 +18,7 @@ path_r = path + 'azo_r2_casscf.out'
 path_ts = path + 'azo_ts_casscf.out'
 
 # Initial dataframe
-# df columns: file, function, basis, osc_prod, wavelength_prod, osc_react, wavelength_react, energy_prod, energy_react, energy_ts, tbr_energy, storage_energy 
+# df columns: file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy 
 df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy'])
 
 def collectES(file):
@@ -50,7 +50,7 @@ file = 'azo_casscf'
 function = 'casscf'
 basis = 'aug-cc-pVTZ'
 osc_prod, wavelength_prod = collectES(path_p_es)
-osc_react, wavelength_react = collectES(path_r_es)
+osc_reac, wavelength_reac = collectES(path_r_es)
 energy_prod = collectCASSCF(path_p)
 energy_reac = collectCASSCF(path_r)
 energy_ts = collectCASSCF(path_ts)
@@ -62,15 +62,15 @@ print('Function: {}'.format(function))
 print('Basis: {}'.format(basis))
 print('Oscillator Strengths (Prod): {}'.format(osc_prod))
 print('Wavelengths (Prod): {}'.format(wavelength_prod))
-print('Oscillator Strengths (React): {}'.format(osc_react))
-print('Wavelengths (React): {}'.format(wavelength_react))
+print('Oscillator Strengths (reac): {}'.format(osc_reac))
+print('Wavelengths (reac): {}'.format(wavelength_reac))
 print('Energy (Prod): {}'.format(energy_prod))
-print('Energy (React): {}'.format(energy_reac))
+print('Energy (reac): {}'.format(energy_reac))
 print('Energy (TS): {}'.format(energy_ts))
 print('TBR Energy: {}'.format(tbr_energy))
 print('Storage Energy: {}'.format(storage_energy))
 
 
-df = pd.concat([df, pd.DataFrame([[file, function, basis, osc_prod, wavelength_prod, osc_react, wavelength_react, energy_prod, energy_reac, energy_ts,tbr_energy,storage_energy]], columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts','tbr_energy','storage_energy'])])
+df = pd.concat([df, pd.DataFrame([[file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts,tbr_energy,storage_energy]], columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts','tbr_energy','storage_energy'])])
 
 df.to_pickle('casscf_results.pkl')
