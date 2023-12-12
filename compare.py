@@ -64,11 +64,11 @@ for i in range(len(basis)):
             abs_error_wavelength_react[i][j] = np.mean(np.abs(df_temp['wavelength_react'][0] - true_wavelength_react))
 
 
-        abs_error_energy_prod[i][j] = np.mean(np.abs(df_temp['energy_prod'] - true_energy_prod))
-        abs_error_energy_react[i][j] = np.mean(np.abs(df_temp['energy_react'] - true_energy_react))
-        abs_error_energy_ts[i][j] = np.mean(np.abs(df_temp['energy_ts'] - true_energy_ts))
-        abs_error_tbr_energy[i][j] = np.mean(np.abs(df_temp['tbr_energy'] - true_tbr_energy))
-        abs_error_storage_energy[i][j] = np.mean(np.abs(df_temp['storage_energy'] - true_storage_energy))
+        abs_error_energy_prod[i][j] = np.abs(df_temp['energy_prod'] - true_energy_prod)
+        abs_error_energy_react[i][j] = np.abs(df_temp['energy_react'] - true_energy_react)
+        abs_error_energy_ts[i][j] = np.abs(df_temp['energy_ts'] - true_energy_ts)
+        abs_error_tbr_energy[i][j] = np.abs(df_temp['tbr_energy'] - true_tbr_energy)
+        abs_error_storage_energy[i][j] = np.abs(df_temp['storage_energy'] - true_storage_energy)
 
 
 # All examined properties
