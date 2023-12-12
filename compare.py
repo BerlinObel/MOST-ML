@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-df_dft = pd.read_pickle('df_dft.pkl')
-df_casscf = pd.read_pickle('df_casscf.pkl')
+df_dft = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/dft_results.pkl')
+df_casscf = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/casscf_results.pkl')
 
 print(df_dft.columns)
 print(df_casscf.columns)
