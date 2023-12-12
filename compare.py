@@ -62,70 +62,23 @@ for i in range(len(basis)):
             abs_error_wavelength_react[i][j] = -1
         else:
             abs_error_wavelength_react[i][j] = np.mean(np.abs(df_temp['wavelength_react'][0] - true_wavelength_react))
-        if len(df_temp['energy_prod']) == 0:
-            abs_error_energy_prod[i][j] = -1
-        else:
-            abs_error_energy_prod[i][j] = np.mean(np.abs(df_temp['energy_prod'] - true_energy_prod))
-        if len(df_temp['energy_react']) == 0:
-            abs_error_energy_react[i][j] = -1
-        else:
-            abs_error_energy_react[i][j] = np.mean(np.abs(df_temp['energy_react'] - true_energy_react))
-        if len(df_temp['energy_ts']) == 0:
-            abs_error_energy_ts[i][j] = -1
-        else:
-            abs_error_energy_ts[i][j] = np.mean(np.abs(df_temp['energy_ts'] - true_energy_ts))
-        if len(df_temp['tbr_energy']) == 0:
-            abs_error_tbr_energy[i][j] = -1
-        else:
-            abs_error_tbr_energy[i][j] = np.mean(np.abs(df_temp['tbr_energy'] - true_tbr_energy))
-        if len(df_temp['storage_energy']) == 0:
-            abs_error_storage_energy[i][j] = -1
-        else:
-            abs_error_storage_energy[i][j] = np.mean(np.abs(df_temp['storage_energy'] - true_storage_energy))
 
 
+        abs_error_energy_prod[i][j] = np.mean(np.abs(df_temp['energy_prod'] - true_energy_prod))
+        abs_error_energy_react[i][j] = np.mean(np.abs(df_temp['energy_react'] - true_energy_react))
+        abs_error_energy_ts[i][j] = np.mean(np.abs(df_temp['energy_ts'] - true_energy_ts))
+        abs_error_tbr_energy[i][j] = np.mean(np.abs(df_temp['tbr_energy'] - true_tbr_energy))
+        abs_error_storage_energy[i][j] = np.mean(np.abs(df_temp['storage_energy'] - true_storage_energy))
 
-# Plot the absolute error for each property as a heatmap
-fig, ax = plt.subplots(3, 3, figsize=(15, 15))
-sns.heatmap(abs_error_osc_prod, annot=True, ax=ax[0,0])
-sns.heatmap(abs_error_osc_react, annot=True, ax=ax[0,1])
-sns.heatmap(abs_error_wavelength_prod, annot=True, ax=ax[0,2])
-sns.heatmap(abs_error_wavelength_react, annot=True, ax=ax[1,0])
-sns.heatmap(abs_error_energy_prod, annot=True, ax=ax[1,1])
-sns.heatmap(abs_error_energy_react, annot=True, ax=ax[1,2])
-sns.heatmap(abs_error_energy_ts, annot=True, ax=ax[2,0])
-sns.heatmap(abs_error_tbr_energy, annot=True, ax=ax[2,1])
-sns.heatmap(abs_error_storage_energy, annot=True, ax=ax[2,2])
 
-ax[0,0].set_title('Oscillator Strength (Prod)')
-ax[0,1].set_title('Oscillator Strength (React)')
-ax[0,2].set_title('Wavelength (Prod)')
-ax[1,0].set_title('Wavelength (React)')
-ax[1,1].set_title('Energy (Prod)')
-ax[1,2].set_title('Energy (React)')
-ax[2,0].set_title('Energy (TS)')
-ax[2,1].set_title('TBR Energy')
-ax[2,2].set_title('Storage Energy')
-
-ax[0,0].set_xticklabels(function)
-ax[0,1].set_xticklabels(function)
-ax[0,2].set_xticklabels(function)
-ax[1,0].set_xticklabels(function)
-ax[1,1].set_xticklabels(function)
-ax[1,2].set_xticklabels(function)
-ax[2,0].set_xticklabels(function)
-ax[2,1].set_xticklabels(function)
-ax[2,2].set_xticklabels(function)
-
-ax[0,0].set_yticklabels(basis)
-ax[0,1].set_yticklabels(basis)
-ax[0,2].set_yticklabels(basis)
-ax[1,0].set_yticklabels(basis)
-ax[1,1].set_yticklabels(basis)
-ax[1,2].set_yticklabels(basis)
-ax[2,0].set_yticklabels(basis)
-ax[2,1].set_yticklabels(basis)
-ax[2,2].set_yticklabels(basis)
-
-plt.tight_layout()
-plt.savefig('compare.png')
+# All examined properties
+properties = ['osc_prod', 'osc_react', 'wavelength_prod', 'wavelength_react', 'energy_prod', 'energy_react', 'energy_ts', 'tbr_energy', 'storage_energy']
+# Plot the absolute error for each property as a seperate heatmap 
+for i in properties:
+    fig, ax = plt.subplots(figsize=(10,10))
+    sns.heatmap(eval('abs_error_'+i), annot=True, ax=ax, xticklabels=function, yticklabels=basis, cmap='viridis')
+    ax.set_title('Absolute Error for '+i)
+    ax.set_xlabel('Functional')
+    ax.set_ylabel('Basis')
+    plt.savefig('/groups/kemi/obel/azobenzene/compchem/comparison/figures/abs_error_'+i+'.png', dpi=300)
+    plt.close()
