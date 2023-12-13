@@ -98,10 +98,32 @@ for i in range(len(basis)):
 
 # All examined properties
 properties = ['osc_prod', 'osc_reac', 'wavelength_prod', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy']
+relevant_properties = ['wavelength_prod', 'wavelength_reac', 'storage_energy', 'tbr_energy']
+
+
+# check for outliers
+
+
+limit = 400*2625.5
+
+
+#convert energy from hartree to kJ/mol
+abs_error_energy_prod = abs_error_energy_prod*2625.5
+abs_error_energy_reac = abs_error_energy_reac*2625.5
+abs_error_energy_ts = abs_error_energy_ts*2625.5
+abs_error_tbr_energy = abs_error_tbr_energy*2625.5
+
+
+for i in properties:
+    abs_error = eval('abs_error_'+i)
+    if max(abs_error.flatten()) > limit:
+        print(i, max(abs_error.flatten()))
+        print(np.where(abs_error == max(abs_error.flatten())))
+        #set to -1
+        abs_error[np.where(abs_error >= limit)] = -1
+
 # Plot the absolute error for each property as a seperate heatmap  
 # Handle the error catch for the properties that are not NaN
-
-
 for i in properties:
     fig, ax = plt.subplots(figsize=(10,10))
     sns.heatmap(eval('abs_error_'+i), annot=True, ax=ax, xticklabels=function, yticklabels=basis, cmap='viridis', fmt='.2f')
@@ -117,7 +139,7 @@ RMS_abs_error = np.zeros((len(basis), len(function)))
 for i in range(len(basis)):
     for j in range(len(function)):
         mean_abs_error[i][j] = np.mean(eval('abs_error_'+properties)[i][j])
-        RMS_abs_error[i][j] = np.sqrt(np.mean(np.square(eval('abs_error_'+properties)[i][j])))
+
 # Plot the mean absolute error for each property as a seperate heatmap
 
 
@@ -141,4 +163,4 @@ df_abs_error_energy_ts.to_csv('abs_error_energy_ts.csv')
 df_abs_error_tbr_energy = pd.DataFrame(abs_error_tbr_energy, index=basis, columns=function)
 df_abs_error_tbr_energy.to_csv('abs_error_tbr_energy.csv')
 df_abs_error_storage_energy = pd.DataFrame(abs_error_storage_energy, index=basis, columns=function)
-df_abs_error_storage_energy.to_csv('abs_error_storage_energy.csv')
+# df_abs_error_storage_energy.to_csv('abs_error_storage_energy.csv')
