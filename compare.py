@@ -112,6 +112,7 @@ abs_error_energy_prod = abs_error_energy_prod*2625.5
 abs_error_energy_reac = abs_error_energy_reac*2625.5
 abs_error_energy_ts = abs_error_energy_ts*2625.5
 abs_error_tbr_energy = abs_error_tbr_energy*2625.5
+abs_error_storage_energy = abs_error_storage_energy*2625.5
 
 
 for i in properties:
