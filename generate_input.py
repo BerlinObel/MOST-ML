@@ -9,7 +9,7 @@ from rdkit.Chem import rdMolDescriptors as rdMD
 from rdkit.Chem import Descriptors
 import logging
 
-path ='MOST-ML/test.txt'
+path ='./test.txt'
 
 mol_list = []
 with open(path, 'r') as f:
