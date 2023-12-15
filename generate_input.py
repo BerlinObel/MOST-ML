@@ -23,6 +23,11 @@ logging.info(f"Generated a total of {len(all_new_molecules_smiles)} new molecule
 
 input_df = pd.DataFrame(columns=['comp_name', 'smiles', 'charge', 'multiplicity'])
 
+
+def get_hashed_label(smiles):    
+    mol = Chem.MolFromSmiles(smiles)
+    return Chem.MolToInchiKey(mol)
+
 for smiles in tqdm(all_new_molecules_smiles):
     mol = Chem.MolFromSmiles(smiles)
     comp_hash = get_hashed_label(smiles)
