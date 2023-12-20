@@ -179,6 +179,18 @@ data = np.array([standardize(abs_error_wavelength_prod), standardize(abs_error_w
 # handle NaN values
 data[np.isnan(data)] = 0
 
+# plot standardized data as heatmap
+fig, ax = plt.subplots(figsize=(12,12))
+for i in range(len(relevant_properties)):
+    sns.heatmap(data[:,:,i], annot=True, ax=ax, xticklabels=function, yticklabels=basis, cmap='plasma', fmt='.2f')
+    ax.set_title('Standardized Absolute Error for '+relevant_properties[i])
+    ax.set_xlabel('Functional')
+    ax.set_ylabel('Basis')
+    plt.savefig('standardized_abs_error_'+relevant_properties[i]+'.png', dpi=300)
+    plt.close()
+
+
+
 print(data)
 # Calculate the RMSE for each combination of basis and functional
 RMSE = np.zeros((len(basis), len(function)))
