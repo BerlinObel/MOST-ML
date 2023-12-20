@@ -172,15 +172,17 @@ df_abs_error_sol_conv_eff.to_csv('abs_error_sol_conv_eff.csv')
 # Plot the RMSE for each combination of basis and functional
 
 # Standardize the data mathematically, i.e. - mean, divide by standard deviation
-data = np.array([abs_error_wavelength_prod, abs_error_wavelength_reac, abs_error_storage_energy, abs_error_tbr_energy, abs_error_sol_conv_eff, abs_error_osc_prod, abs_error_osc_reac])
-standardized_data = data - np.mean(data, axis=0) / np.std(data, axis=0)
+def standardize(data):
+    return (data - np.mean(data, axis=0)) / np.std(data, axis=0)
+data = np.array([standardize(abs_error_wavelength_prod), standardize(abs_error_wavelength_reac), standardize(abs_error_storage_energy), standardize(abs_error_tbr_energy), standardize(abs_error_sol_conv_eff), standardize(abs_error_osc_prod), standardize(abs_error_osc_reac)]).transpose(1,2,0)
 
-print(standardized_data)
+
+print(dataa)
 # Calculate the RMSE for each combination of basis and functional
 RMSE = np.zeros((len(basis), len(function)))
 for i in range(len(basis)):
     for j in range(len(function)):
-        RMSE[i][j] = np.sqrt(np.mean(standardized_data[:,i,j]**2))
+        RMSE[i][j] = np.sqrt(np.mean(data[:,i,j]**2))
 
 
 
