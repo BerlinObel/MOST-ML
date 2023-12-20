@@ -5,6 +5,8 @@ import os
 import sys
 import glob
 
+from calc_sce import *
+
 
 
 verbose = True
@@ -83,10 +85,10 @@ def collectES(file):
 
 
 # Define function to collect all results in a dataframe
-# df columns: file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy 
+# df columns: file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy, solar_conversion_efficiency
 def collectAll():
     # Initialize dataframe
-    df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy'])
+    df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy', 'solar_conversion_efficiency'])
     # Collect files
     for file in reac_files:
         function, basis = read_functional_and_basis(file)
@@ -116,8 +118,9 @@ def collectAll():
         if verbose: print('TBR Energy: {}'.format(tbr_energy))
         storage_energy = energy_prod - energy_reac
         if verbose: print('Storage Energy: {}'.format(storage_energy))
+        sce = SCE(storage_energy,tbr_energy,wavelength_prod[0],osc_prod[0])
         # Append to dataframe using concat
-        df = pd.concat([df, pd.DataFrame([[file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy]], columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy'])])
+        df = pd.concat([df, pd.DataFrame([[file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy, sce]], columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy', 'solar_conversion_efficiency'])])
     return df
 
 # Run function
