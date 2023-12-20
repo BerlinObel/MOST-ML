@@ -40,47 +40,47 @@ for i in range(len(basis)):
         
         # Assign the value for each property with error catch
         if len(df_temp['osc_prod'][0]) == 0:
-            abs_error_osc_prod[i][j] = -1
+            abs_error_osc_prod[i][j] = np.nan
         else:
             abs_error_osc_prod[i][j] = df_temp['osc_prod'][0][0] - true_osc_prod
         if len(df_temp['osc_reac'][0]) == 0:
-            abs_error_osc_reac[i][j] = -1
+            abs_error_osc_reac[i][j] = np.nan
         else:
             abs_error_osc_reac[i][j] = df_temp['osc_reac'][0][0] - true_osc_reac
         if len(df_temp['wavelength_prod'][0]) == 0:
-            abs_error_wavelength_prod[i][j] = -1
+            abs_error_wavelength_prod[i][j] = np.nan
         else:
             abs_error_wavelength_prod[i][j] = df_temp['wavelength_prod'][0][0] - true_wavelength_prod
         if len(df_temp['wavelength_reac'][0]) == 0:
-            abs_error_wavelength_reac[i][j] = -1
+            abs_error_wavelength_reac[i][j] = np.nan
         else:
             abs_error_wavelength_reac[i][j] = df_temp['wavelength_reac'][0][0] - true_wavelength_reac
 
 
         if len(df_temp['energy_prod']) == 0:
-            abs_error_energy_prod[i][j] = -1
+            abs_error_energy_prod[i][j] = np.nan
         else:   
             abs_error_energy_prod[i][j] = df_temp['energy_prod'] - true_energy_prod
         if len(df_temp['energy_reac']) == 0:  
-            abs_error_energy_reac[i][j] = -1   
+            abs_error_energy_reac[i][j] = np.nan
         else:
             abs_error_energy_reac[i][j] = df_temp['energy_reac'] - true_energy_reac
         if len(df_temp['energy_ts']) == 0:
-            abs_error_energy_ts[i][j] = -1
+            abs_error_energy_ts[i][j] = np.nan
         else:
             abs_error_energy_ts[i][j] = df_temp['energy_ts'] - true_energy_ts
         if len(df_temp['tbr_energy']) == 0:
-            abs_error_tbr_energy[i][j] = -1
+            abs_error_tbr_energy[i][j] = np.nan
         else:
             abs_error_tbr_energy[i][j] = df_temp['tbr_energy'] - true_tbr_energy
 
         if len(df_temp['storage_energy']) == 0:
-            abs_error_storage_energy[i][j] = -1
+            abs_error_storage_energy[i][j] = np.nan
         else:
             abs_error_storage_energy[i][j] = df_temp['storage_energy'] - true_storage_energy
 
         if len(df_temp['solar_conversion_efficiency']) == 0:
-            abs_error_sol_conv_eff[i][j] = -1
+            abs_error_sol_conv_eff[i][j] = np.nan
         else:
             abs_error_sol_conv_eff[i][j] = df_temp['solar_conversion_efficiency'] - true_sol_conv_eff
 
