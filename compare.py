@@ -133,11 +133,18 @@ for i in properties:
 # Handle the error catch for the properties that are not NaN
 for i in properties:
     fig, ax = plt.subplots(figsize=(10,10))
-    sns.heatmap(eval('abs_error_'+i), annot=True, ax=ax, xticklabels=function, yticklabels=basis, cmap='viridis', fmt='.2f')
+    sns.heatmap(np.abs(eval('abs_error_'+i)), annot=True, ax=ax, xticklabels=function, yticklabels=basis, cmap='viridis', fmt='.2f')
     ax.set_title('Absolute Error for '+i)
     ax.set_xlabel('Functional')
     ax.set_ylabel('Basis')
     plt.savefig('abs_error_'+i+'.png', dpi=300)
+    plt.close()
+    ig, ax = plt.subplots(figsize=(10,10))
+    sns.heatmap(eval('abs_error_'+i), annot=True, ax=ax, xticklabels=function, yticklabels=basis, cmap='viridis', fmt='.2f')
+    ax.set_title('Error for '+i)
+    ax.set_xlabel('Functional')
+    ax.set_ylabel('Basis')
+    plt.savefig('error_'+i+'.png', dpi=300)
     plt.close()
 
 # Plot the mean absolute error for each property as a seperate heatmap
