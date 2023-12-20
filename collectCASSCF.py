@@ -5,21 +5,23 @@ import os
 import sys
 import glob
 
+from calc_sce import *
+
 
 
 verbose = True
 # File paths
 # DFT
 path = '/groups/kemi/obel/azobenzene/casscf/'
-path_p_es = path + 'azo_p_casscf_singlet.out'
+path_p_es = path + 'azo_p2_casscf_singlet.out'
 path_p = path + 'azo_p_casscf.out'
-path_r_es = path + 'azo_r_casscf_singlet.out'
+path_r_es = path + 'azo_r2_casscf_singlet.out'
 path_r = path + 'azo_r2_casscf.out'
 path_ts = path + 'azo_ts_casscf.out'
 
 # Initial dataframe
-# df columns: file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy 
-df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy'])
+# df columns: file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy, solar_conversion_efficiency
+df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy', 'solar_conversion_efficiency'])
 
 def collectES(file):
     # Read in DFT data
@@ -56,6 +58,7 @@ energy_reac = collectCASSCF(path_r)
 energy_ts = collectCASSCF(path_ts)
 tbr_energy = energy_ts - energy_prod
 storage_energy = energy_prod - energy_reac
+sce = SCE(storage_energy,tbr_energy,wavelength_prod[0],osc_prod[0])
 # Print all nice and pretty
 print('File: {}'.format(file))
 print('Function: {}'.format(function))
@@ -69,8 +72,8 @@ print('Energy (reac): {}'.format(energy_reac))
 print('Energy (TS): {}'.format(energy_ts))
 print('TBR Energy: {}'.format(tbr_energy))
 print('Storage Energy: {}'.format(storage_energy))
+print('Solar Conversion Efficiency: {}'.format(sce))
 
-
-df = pd.concat([df, pd.DataFrame([[file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts,tbr_energy,storage_energy]], columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts','tbr_energy','storage_energy'])])
+df = pd.concat([df, pd.DataFrame([[file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts,tbr_energy,storage_energy]], columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts','tbr_energy','storage_energy','solar_conversion_efficiency'])])
 
 df.to_pickle('casscf_results.pkl')
