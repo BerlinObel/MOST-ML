@@ -177,12 +177,12 @@ standardized_data = data - np.mean(data, axis=0) / np.std(data, axis=0)
 
 print(standardized_data)
 # Calculate the RMSE for each combination of basis and functional
-from sklearn.metrics import mean_squared_error
-from math import sqrt
 RMSE = np.zeros((len(basis), len(function)))
 for i in range(len(basis)):
     for j in range(len(function)):
-        RMSE[i][j] = sqrt(mean_squared_error(standardized_data[:,i], standardized_data[:,j]))
+        RMSE[i][j] = np.sqrt(np.mean(standardized_data[:,i,j]**2))
+
+
 
 # Plot the RMSE as a heatmap
 fig, ax = plt.subplots(figsize=(12,12))
