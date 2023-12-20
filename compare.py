@@ -177,7 +177,7 @@ def standardize(data):
 data = np.array([standardize(abs_error_wavelength_prod), standardize(abs_error_wavelength_reac), standardize(abs_error_storage_energy), standardize(abs_error_tbr_energy), standardize(abs_error_sol_conv_eff), standardize(abs_error_osc_prod), standardize(abs_error_osc_reac)]).transpose(1,2,0)
 
 
-print(dataa)
+print(data)
 # Calculate the RMSE for each combination of basis and functional
 RMSE = np.zeros((len(basis), len(function)))
 for i in range(len(basis)):
