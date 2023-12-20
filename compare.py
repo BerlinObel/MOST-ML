@@ -176,6 +176,8 @@ def standardize(data):
     return (data - np.mean(data, axis=0)) / np.std(data, axis=0)
 data = np.array([standardize(abs_error_wavelength_prod), standardize(abs_error_wavelength_reac), standardize(abs_error_storage_energy), standardize(abs_error_tbr_energy), standardize(abs_error_sol_conv_eff), standardize(abs_error_osc_prod), standardize(abs_error_osc_reac)]).transpose(1,2,0)
 
+# handle NaN values
+data[np.isnan(data)] = 0
 
 print(data)
 # Calculate the RMSE for each combination of basis and functional
