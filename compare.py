@@ -104,7 +104,7 @@ for i in range(len(basis)):
 
 
 # All examined properties
-properties = ['osc_prod', 'osc_reac', 'wavelength_prod', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy']
+properties = ['osc_prod', 'osc_reac', 'wavelength_prod', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy','sol_conv_eff']
 relevant_properties = ['wavelength_prod', 'wavelength_reac', 'storage_energy', 'tbr_energy', 'solar_conversion_efficiency','osc_prod', 'osc_reac']
 
 
