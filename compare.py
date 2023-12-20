@@ -173,7 +173,17 @@ df_abs_error_sol_conv_eff.to_csv('abs_error_sol_conv_eff.csv')
 
 # Standardize the data mathematically, i.e. - mean, divide by standard deviation
 def standardize(data):
+    print (data)
+    # Find the mean of each column, ignoring NaN values
+    col_means = np.nanmean(data, axis=0)
+    
+    # Replace NaN values with the respective column means
+    inds = np.where(np.isnan(data))
+    data[inds] = np.take(col_means, inds[1])
+    
+    # Standardize the data
     return (data - np.mean(data, axis=0)) / np.std(data, axis=0)
+
 data = np.array([standardize(abs_error_wavelength_prod), standardize(abs_error_wavelength_reac), standardize(abs_error_storage_energy), standardize(abs_error_tbr_energy), standardize(abs_error_sol_conv_eff), standardize(abs_error_osc_prod), standardize(abs_error_osc_reac)]).transpose(1,2,0)
 
 # handle NaN values
