@@ -52,19 +52,19 @@ for i in range(len(basis)):
         
         # Assign the value for each property with error catch
         if len(df_temp['osc_prod'][0]) == 0:
-            abs_error_osc_prod[i][j] = -1
+            abs_error_osc_prod[i][j] = np.nan
         else:
             abs_error_osc_prod[i][j] = df_temp['osc_prod'][0][0] - true_osc_prod
         if len(df_temp['osc_reac'][0]) == 0:
-            abs_error_osc_reac[i][j] = -1
+            abs_error_osc_reac[i][j] = np.nan
         else:
             abs_error_osc_reac[i][j] = df_temp['osc_reac'][0][0] - true_osc_reac
         if len(df_temp['wavelength_prod'][0]) == 0:
-            abs_error_wavelength_prod[i][j] = -1
+            abs_error_wavelength_prod[i][j] = np.nan
         else:
             abs_error_wavelength_prod[i][j] = df_temp['wavelength_prod'][0][0] - true_wavelength_prod
         if len(df_temp['wavelength_reac'][0]) == 0:
-            abs_error_wavelength_reac[i][j] = -1
+            abs_error_wavelength_reac[i][j] = np.nan
         else:
             abs_error_wavelength_reac[i][j] = df_temp['wavelength_reac'][0][0] - true_wavelength_reac
 
@@ -82,7 +82,7 @@ for i in range(len(basis)):
         else:
             abs_error_energy_ts[i][j] = df_temp['energy_ts'] - true_energy_ts
         if len(df_temp['tbr_energy']) == 0:
-            abs_error_tbr_energy[i][j] = -1
+            abs_error_tbr_energy[i][j] = np.nan
         else:
             abs_error_tbr_energy[i][j] = df_temp['tbr_energy'] - true_tbr_energy
 
@@ -128,8 +128,7 @@ for i in properties:
         print(i, max(abs_error.flatten()))
         print(np.where(abs_error == max(abs_error.flatten())))
         #set to -1
-        abs_error[np.where(abs_error >= limit)] = -1
-
+        abs_error[np.where(abs_error >= limit)] = np.nan
 # Plot the absolute error for each property as a seperate heatmap  
 # Handle the error catch for the properties that are not NaN
 for i in properties:
