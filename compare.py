@@ -169,13 +169,12 @@ df_abs_error_sol_conv_eff = pd.DataFrame(abs_error_sol_conv_eff, index=basis, co
 df_abs_error_sol_conv_eff.to_csv('abs_error_sol_conv_eff.csv')
 
 
-# Plot the RMSE for each combination of basis and functional
 
 # Standardize the data mathematically, i.e. - mean, divide by standard deviation
 def standardize(data):
     print (data)
     # Find the mean of each column, ignoring NaN values
-    col_means = np.nanmean(data, axis=0)
+    col_means = np.nanmean(data)
     
     # Replace NaN values with the respective column means
     inds = np.where(np.isnan(data))
@@ -190,6 +189,8 @@ print (data.shape)
 for i in range(len(relevant_properties)):
     print (relevant_properties[i])
     print (data[:,:,i])
+
+
 # plot standardized data as heatmap
 fig, ax = plt.subplots(figsize=(12,12))
 for i in range(len(relevant_properties)):
@@ -202,12 +203,12 @@ for i in range(len(relevant_properties)):
 
 
 
-print(data)
+
 # Calculate the RMSE for each combination of basis and functional
 RMSE = np.zeros((len(basis), len(function)))
 for i in range(len(basis)):
     for j in range(len(function)):
-        RMSE[i][j] = np.sqrt(np.mean(data[:,i,j]**2))
+        RMSE[i][j] = np.sqrt(np.mean((data[i][j]**2)))
 
 
 
