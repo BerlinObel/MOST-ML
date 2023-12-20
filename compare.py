@@ -171,19 +171,18 @@ df_abs_error_sol_conv_eff.to_csv('abs_error_sol_conv_eff.csv')
 
 # Plot the RMSE for each combination of basis and functional
 
-# Standardize the data
-from sklearn.preprocessing import StandardScaler
-scaler = StandardScaler()
-scaler.fit(df_dft[relevant_properties])
-df_dft_scaled = scaler.transform(df_dft[relevant_properties])
+# Standardize the data mathematically, i.e. - mean, divide by standard deviation
+data = np.array([abs_error_wavelength_prod, abs_error_wavelength_reac, abs_error_storage_energy, abs_error_tbr_energy, abs_error_sol_conv_eff, abs_error_osc_prod, abs_error_osc_reac])
+standardized_data = data - np.mean(data, axis=0) / np.std(data, axis=0)
 
+print(standardized_data)
 # Calculate the RMSE for each combination of basis and functional
 from sklearn.metrics import mean_squared_error
 from math import sqrt
 RMSE = np.zeros((len(basis), len(function)))
 for i in range(len(basis)):
     for j in range(len(function)):
-        RMSE[i][j] = sqrt(mean_squared_error(df_dft_scaled[:,i], df_dft_scaled[:,j]))
+        RMSE[i][j] = sqrt(mean_squared_error(standardized_data[:,i], standardized_data[:,j]))
 
 # Plot the RMSE as a heatmap
 fig, ax = plt.subplots(figsize=(12,12))
