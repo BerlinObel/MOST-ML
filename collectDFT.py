@@ -118,7 +118,15 @@ def collectAll():
         if verbose: print('TBR Energy: {}'.format(tbr_energy))
         storage_energy = energy_prod - energy_reac
         if verbose: print('Storage Energy: {}'.format(storage_energy))
-        sce = SCE(storage_energy,tbr_energy,wavelength_prod[0],osc_prod[0])
+        if es_reac == 'None' or es_prod == 'None':
+            sce = -1
+            # print('No ES files found for functional: {} and basis set: {}'.format(function, basis))
+        elif energy_ts == -1:
+            sce = -1
+            # print('No TS file found for functional: {} and basis set: {}'.format(function, basis))
+        else: sce = SCE(storage_energy,tbr_energy,wavelength_prod[0],osc_prod[0])
+        if verbose: print('Solar Conversion Efficiency: {}'.format(sce))
+
         # Append to dataframe using concat
         df = pd.concat([df, pd.DataFrame([[file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy, sce]], columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy', 'solar_conversion_efficiency'])])
     return df
