@@ -15,7 +15,7 @@ df_casscf = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/cas
 # print(df_casscf.columns)
 
 
-# df columns: file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy 
+# df columns: file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy, solar_conversion_efficiency
 true_osc_prod = df_casscf['osc_prod'].values[0][0]
 true_osc_reac = df_casscf['osc_reac'].values[0][0]
 true_wavelength_prod = df_casscf['wavelength_prod'].values[0][0]
@@ -25,8 +25,9 @@ true_energy_reac = df_casscf['energy_reac'].values[0]
 true_energy_ts = df_casscf['energy_ts'].values[0]
 true_tbr_energy = df_casscf['tbr_energy'].values[0]
 true_storage_energy = df_casscf['storage_energy'].values[0]
+true_sol_conv_eff = df_casscf['solar_conversion_efficiency'].values[0]
 
-print(true_osc_prod, true_osc_reac, true_wavelength_prod, true_wavelength_reac, true_energy_prod, true_energy_reac, true_energy_ts, true_tbr_energy, true_storage_energy)
+print(true_osc_prod, true_osc_reac, true_wavelength_prod, true_wavelength_reac, true_energy_prod, true_energy_reac, true_energy_ts, true_tbr_energy, true_storage_energy, true_sol_conv_eff)
 # Create a 2d array with basis and function with absolute error for each property
 basissets = df_dft['basis'].unique()
 basis = ['STO-3G', '6-31++Gdp', '6-311++Gdp', 'pc-0', 'pc-1', 'pc-2', 'aug-pc-0', 'aug-pc-1']
@@ -42,6 +43,7 @@ abs_error_energy_reac = np.zeros((len(basis), len(function)))
 abs_error_energy_ts = np.zeros((len(basis), len(function)))
 abs_error_tbr_energy = np.zeros((len(basis), len(function)))
 abs_error_storage_energy = np.zeros((len(basis), len(function)))
+abs_error_sol_conv_eff = np.zeros((len(basis), len(function)))
 
 for i in range(len(basis)):
     for j in range(len(function)):
@@ -52,42 +54,47 @@ for i in range(len(basis)):
         if len(df_temp['osc_prod'][0]) == 0:
             abs_error_osc_prod[i][j] = -1
         else:
-            abs_error_osc_prod[i][j] = np.mean(np.abs(df_temp['osc_prod'][0][0] - true_osc_prod))
+            abs_error_osc_prod[i][j] = df_temp['osc_prod'][0][0] - true_osc_prod
         if len(df_temp['osc_reac'][0]) == 0:
             abs_error_osc_reac[i][j] = -1
         else:
-            abs_error_osc_reac[i][j] = np.mean(np.abs(df_temp['osc_reac'][0][0] - true_osc_reac))
+            abs_error_osc_reac[i][j] = df_temp['osc_reac'][0][0] - true_osc_reac
         if len(df_temp['wavelength_prod'][0]) == 0:
             abs_error_wavelength_prod[i][j] = -1
         else:
-            abs_error_wavelength_prod[i][j] = np.mean(np.abs(df_temp['wavelength_prod'][0][0] - true_wavelength_prod))
+            abs_error_wavelength_prod[i][j] = df_temp['wavelength_prod'][0][0] - true_wavelength_prod
         if len(df_temp['wavelength_reac'][0]) == 0:
             abs_error_wavelength_reac[i][j] = -1
         else:
-            abs_error_wavelength_reac[i][j] = np.mean(np.abs(df_temp['wavelength_reac'][0][0] - true_wavelength_reac))
+            abs_error_wavelength_reac[i][j] = df_temp['wavelength_reac'][0][0] - true_wavelength_reac
 
 
         if len(df_temp['energy_prod']) == 0:
             abs_error_energy_prod[i][j] = -1
         else:   
-            abs_error_energy_prod[i][j] = np.mean(np.abs(df_temp['energy_prod'] - true_energy_prod))
+            abs_error_energy_prod[i][j] = df_temp['energy_prod'] - true_energy_prod
         if len(df_temp['energy_reac']) == 0:  
             abs_error_energy_reac[i][j] = -1   
         else:
-            abs_error_energy_reac[i][j] = np.mean(np.abs(df_temp['energy_reac'] - true_energy_reac))
+            abs_error_energy_reac[i][j] = df_temp['energy_reac'] - true_energy_reac
         if len(df_temp['energy_ts']) == 0:
             abs_error_energy_ts[i][j] = -1
         else:
-            abs_error_energy_ts[i][j] = np.mean(np.abs(df_temp['energy_ts'] - true_energy_ts))
+            abs_error_energy_ts[i][j] = df_temp['energy_ts'] - true_energy_ts
         if len(df_temp['tbr_energy']) == 0:
             abs_error_tbr_energy[i][j] = -1
         else:
-            abs_error_tbr_energy[i][j] = np.mean(np.abs(df_temp['tbr_energy'] - true_tbr_energy))
+            abs_error_tbr_energy[i][j] = df_temp['tbr_energy'] - true_tbr_energy
 
         if len(df_temp['storage_energy']) == 0:
             abs_error_storage_energy[i][j] = -1
         else:
-            abs_error_storage_energy[i][j] = np.mean(np.abs(df_temp['storage_energy'] - true_storage_energy))
+            abs_error_storage_energy[i][j] = df_temp['storage_energy'] - true_storage_energy
+
+        if len(df_temp['solar_conversion_efficiency']) == 0:
+            abs_error_sol_conv_eff[i][j] = -1
+        else:
+            abs_error_sol_conv_eff[i][j] = df_temp['solar_conversion_efficiency'] - true_sol_conv_eff
 
         # abs_error_energy_prod[i][j] = np.abs(df_temp['energy_prod'] - true_energy_prod)
         # abs_error_energy_reac[i][j] = np.abs(df_temp['energy_reac'] - true_energy_reac)
@@ -98,7 +105,7 @@ for i in range(len(basis)):
 
 # All examined properties
 properties = ['osc_prod', 'osc_reac', 'wavelength_prod', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy']
-relevant_properties = ['wavelength_prod', 'wavelength_reac', 'storage_energy', 'tbr_energy']
+relevant_properties = ['wavelength_prod', 'wavelength_reac', 'storage_energy', 'tbr_energy', 'solar_conversion_efficiency','osc_prod', 'osc_reac']
 
 
 # check for outliers
@@ -134,13 +141,6 @@ for i in properties:
     plt.savefig('abs_error_'+i+'.png', dpi=300)
     plt.close()
 
-# calculate the mean absolute error for each basis and functional 
-mean_abs_error = np.zeros((len(basis), len(function)))
-RMS_abs_error = np.zeros((len(basis), len(function)))
-for i in range(len(basis)):
-    for j in range(len(function)):
-        mean_abs_error[i][j] = np.mean(eval('abs_error_'+properties)[i][j])
-
 # Plot the mean absolute error for each property as a seperate heatmap
 
 
@@ -164,4 +164,35 @@ df_abs_error_energy_ts.to_csv('abs_error_energy_ts.csv')
 df_abs_error_tbr_energy = pd.DataFrame(abs_error_tbr_energy, index=basis, columns=function)
 df_abs_error_tbr_energy.to_csv('abs_error_tbr_energy.csv')
 df_abs_error_storage_energy = pd.DataFrame(abs_error_storage_energy, index=basis, columns=function)
-# df_abs_error_storage_energy.to_csv('abs_error_storage_energy.csv')
+df_abs_error_storage_energy.to_csv('abs_error_storage_energy.csv')
+df_abs_error_sol_conv_eff = pd.DataFrame(abs_error_sol_conv_eff, index=basis, columns=function)
+df_abs_error_sol_conv_eff.to_csv('abs_error_sol_conv_eff.csv')
+
+
+# Plot the RMSE for each combination of basis and functional
+
+# Standardize the data
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+scaler.fit(df_dft[relevant_properties])
+df_dft_scaled = scaler.transform(df_dft[relevant_properties])
+
+# Calculate the RMSE for each combination of basis and functional
+from sklearn.metrics import mean_squared_error
+from math import sqrt
+RMSE = np.zeros((len(basis), len(function)))
+for i in range(len(basis)):
+    for j in range(len(function)):
+        RMSE[i][j] = sqrt(mean_squared_error(df_dft_scaled[:,i], df_dft_scaled[:,j]))
+
+# Plot the RMSE as a heatmap
+fig, ax = plt.subplots(figsize=(12,12))
+sns.heatmap(RMSE, annot=True, ax=ax, xticklabels=function, yticklabels=basis, cmap='plasma', fmt='.2f')
+ax.set_title('RMSE for all properties')
+ax.set_xlabel('Functional')
+ax.set_ylabel('Basis')
+plt.savefig('RMSE.png', dpi=300)
+plt.close()
+
+
+
