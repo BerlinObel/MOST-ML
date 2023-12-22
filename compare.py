@@ -179,6 +179,9 @@ df_abs_error_sol_conv_eff.to_csv('abs_error_sol_conv_eff.csv')
 # Standardize the data mathematically, i.e. - mean, divide by standard deviation
 def standardize(data):
     d = data.flatten()
+
+    # Remove NaN values
+    d = d[~np.isnan(d)]
     mu = np.mean(d)
     std = np.std(d)
     # Standardize the data
