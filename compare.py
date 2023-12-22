@@ -190,7 +190,10 @@ data = np.array([standardize(abs_error_wavelength_prod), standardize(abs_error_w
 # plot standardized data as heatmap
 fig, ax = plt.subplots(figsize=(12,12))
 for i in range(len(properties)):
-    std_data = standardize(eval('abs_error_'+properties[i]))
+    print(properties[i])
+    data = eval('abs_error_'+properties[i])
+    print(data)
+    std_data = standardize(data)
     print(std_data)
     sns.heatmap(std_data, annot=True, ax=ax, xticklabels=function, yticklabels=basis, cmap='plasma', fmt='.2f')
     ax.set_title('Standardized Absolute Error for '+properties[i])
