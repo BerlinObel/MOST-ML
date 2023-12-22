@@ -190,9 +190,12 @@ def standardize(data):
 data = np.array([standardize(abs_error_wavelength_prod), standardize(abs_error_wavelength_reac), standardize(abs_error_storage_energy), standardize(abs_error_tbr_energy), standardize(abs_error_sol_conv_eff), standardize(abs_error_osc_prod), standardize(abs_error_osc_reac)]).transpose(1,2,0)
 
 
+
+properties = ['wavelength_prod', 'wavelength_reac', 'storage_energy', 'tbr_energy', 'sol_conv_eff','osc_prod', 'osc_reac']
 # plot standardized data as heatmap
-fig, ax = plt.subplots(figsize=(12,12))
+
 for i in range(len(properties)):
+    fig, ax = plt.subplots(figsize=(12,12))
     print(properties[i])
     data = eval('abs_error_'+properties[i])
     print(data)
@@ -204,6 +207,7 @@ for i in range(len(properties)):
     ax.set_ylabel('Basis')
     plt.savefig('standardized_abs_error_'+properties[i]+'.png', dpi=300)
     plt.close()
+
 
 
 # fill nan values with 0
