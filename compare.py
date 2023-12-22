@@ -193,10 +193,10 @@ for i in range(len(properties)):
     std_data = standardize(eval('abs_error_'+properties[i]))
     print(std_data)
     sns.heatmap(std_data, annot=True, ax=ax, xticklabels=function, yticklabels=basis, cmap='plasma', fmt='.2f')
-    ax.set_title('Standardized Absolute Error for '+relevant_properties[i])
+    ax.set_title('Standardized Absolute Error for '+properties[i])
     ax.set_xlabel('Functional')
     ax.set_ylabel('Basis')
-    plt.savefig('standardized_abs_error_'+relevant_properties[i]+'.png', dpi=300)
+    plt.savefig('standardized_abs_error_'+properties[i]+'.png', dpi=300)
     plt.close()
 
 
