@@ -30,7 +30,7 @@ true_sol_conv_eff = df_casscf['solar_conversion_efficiency'].values[0]
 print(true_osc_prod, true_osc_reac, true_wavelength_prod, true_wavelength_reac, true_energy_prod, true_energy_reac, true_energy_ts, true_tbr_energy, true_storage_energy, true_sol_conv_eff)
 # Create a 2d array with basis and function with absolute error for each property
 basissets = df_dft['basis'].unique()
-basis = ['STO-3G', '6-31++Gdp', '6-311++Gdp', 'pc-0', 'pc-1', 'pc-2', 'aug-pc-0', 'aug-pc-1']
+basis = ['STO-3G', '6-31++Gdp', '6-311++Gdp', 'pc-0', 'pc-1', 'pc-2', 'aug-pc-0', 'aug-pc-1','cc-pVDZ','aug-cc-pVDZ']
 functionals = df_dft['function'].unique()
 function = ['LSD','PBE0','B3LYP','B3PW91','CAM-B3LYP','wB97X-D3','M062X','CAM-B3LYP-D4','B2PLYP']
             
