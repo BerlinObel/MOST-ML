@@ -15,6 +15,7 @@ df_casscf = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/cas
 # print(df_casscf.columns)
 
 
+
 # df columns: file, function, basis, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy, solar_conversion_efficiency
 true_osc_prod = df_casscf['osc_prod'].values[0][0]
 true_osc_reac = df_casscf['osc_reac'].values[0][0]
@@ -44,6 +45,7 @@ abs_error_energy_ts = np.zeros((len(basis), len(function)))
 abs_error_tbr_energy = np.zeros((len(basis), len(function)))
 abs_error_storage_energy = np.zeros((len(basis), len(function)))
 abs_error_sol_conv_eff = np.zeros((len(basis), len(function)))
+dft_sol_conv_eff = np.zeros((len(basis), len(function)))
 
 for i in range(len(basis)):
     for j in range(len(function)):
@@ -51,7 +53,7 @@ for i in range(len(basis)):
         df_temp = df_dft[(df_dft['basis'] == basis[i]) & (df_dft['function'] == function[j])]
 
 
-       
+        dft_sol_conv_eff[i][j] = df_temp['solar_conversion_efficiency'].values[0]
         abs_error_energy_prod[i][j] = df_temp['energy_prod'] - true_energy_prod
         abs_error_energy_reac[i][j] = df_temp['energy_reac'] - true_energy_reac
         abs_error_energy_ts[i][j] = df_temp['energy_ts'] - true_energy_ts
@@ -135,7 +137,7 @@ relevant_properties = ['wavelength_prod', 'wavelength_reac', 'storage_energy', '
 # check for outliers
 
 
-
+print(dft_sol_conv_eff)
 
 #convert energy from hartree to kJ/mol
 abs_error_energy_prod = abs_error_energy_prod*2625.5
