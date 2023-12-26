@@ -239,11 +239,11 @@ for i in range(len(properties)):
     plt.savefig('standardized_abs_error_'+properties[i]+'.png', dpi=300)
     plt.close()
 
-data_full = np.array([standardize(abs_error_wavelength_prod), 
-                      standardize(abs_error_wavelength_reac), 
-                      standardize(abs_error_storage_energy), 
-                      standardize(abs_error_tbr_energy), 
-                      standardize(abs_error_sol_conv_eff)]).transpose(1,2,0)
+# data_full = np.array([standardize(abs_error_wavelength_prod), 
+#                       standardize(abs_error_wavelength_reac), 
+#                       standardize(abs_error_storage_energy), 
+#                       standardize(abs_error_tbr_energy), 
+#                       standardize(abs_error_sol_conv_eff)]).transpose(1,2,0)
 
 # fill nan values with 0
 data = np.nan_to_num(data_full)
