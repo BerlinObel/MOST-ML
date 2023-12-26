@@ -234,8 +234,9 @@ for i in range(len(properties)):
 
 
 # fill nan values with 0
-data = np.nan_to_num(data)
+data = np.nan_to_num(data_full)
 
+print(data.shape)
 # Calculate the RMSE for each combination of basis and functional
 RMSE = np.zeros((len(basis), len(function)))
 for i in range(len(basis)):
