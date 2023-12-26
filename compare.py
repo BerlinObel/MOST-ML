@@ -33,7 +33,7 @@ print(true_osc_prod, true_osc_reac, true_wavelength_prod, true_wavelength_reac, 
 basissets = df_dft['basis'].unique()
 basis = ['STO-3G', '6-31++Gdp', '6-311++Gdp', 'pc-0', 'pc-1', 'pc-2', 'aug-pc-0', 'aug-pc-1','cc-pVDZ','aug-cc-pVDZ']
 functionals = df_dft['function'].unique()
-function = ['LSD','PBE0','B3LYP','B3PW91','CAM-B3LYP','wB97X-D3','M062X','CAM-B3LYP-D4','B2PLYP']
+function = ['LSD','PBE0','B3LYP','B3PW91','CAM-B3LYP','wB97X-D3','M062X','CAM-B3LYP-D4']#,'B2PLYP']
             
 abs_error_osc_prod = np.zeros((len(basis), len(function)))
 abs_error_osc_reac = np.zeros((len(basis), len(function)))
@@ -52,7 +52,7 @@ for i in range(len(basis)):
         print(basis[i], function[j])
         df_temp = df_dft[(df_dft['basis'] == basis[i]) & (df_dft['function'] == function[j])]
 
-        print(df_temp)
+        # print(df_temp)
         abs_error_energy_prod[i][j] = df_temp['energy_prod'] - true_energy_prod
         abs_error_energy_reac[i][j] = df_temp['energy_reac'] - true_energy_reac
         abs_error_energy_ts[i][j] = df_temp['energy_ts'] - true_energy_ts
