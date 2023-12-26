@@ -63,6 +63,7 @@ for i in range(len(basis)):
             abs_error_sol_conv_eff[i][j] = np.nan
             abs_error_osc_prod[i][j] = np.nan
             abs_error_osc_reac[i][j] = np.nan
+            continue
         abs_error_osc_prod[i][j] = df_temp['osc_prod'][0][0] - true_osc_prod
         abs_error_osc_reac[i][j] = df_temp['osc_reac'][0][0] - true_osc_reac
         abs_error_wavelength_prod[i][j] = df_temp['wavelength_prod'][0][0] - true_wavelength_prod
