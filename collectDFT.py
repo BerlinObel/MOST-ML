@@ -105,14 +105,14 @@ def collectAll():
             if verbose: print('Oscillators and wavelengths for product: {} {}'.format(osc_prod, wavelength_prod))
             osc_reac, wavelength_reac = collectES(es_reac)
             if verbose: print('Oscillators and wavelengths for reacant: {} {}'.format(osc_reac, wavelength_reac))
-        energy_prod = -collectDFT(prod)
+        energy_prod = collectDFT(prod)
         if verbose: print('Energy of product: {}'.format(energy_prod))
-        energy_reac = -collectDFT(file)
+        energy_reac = collectDFT(file)
         if verbose: print('Energy of reacant: {}'.format(energy_reac))
         if ts == 'None':
             energy_ts = -1
             print('No TS file found for functional: {} and basis set: {}'.format(function, basis))
-        else: energy_ts = -collectDFT(ts)
+        else: energy_ts = collectDFT(ts)
         if verbose: print('Energy of transition state: {}'.format(energy_ts))
         tbr_energy = energy_ts - energy_prod
         if verbose: print('TBR Energy: {}'.format(tbr_energy))
