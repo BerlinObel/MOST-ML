@@ -45,7 +45,7 @@ abs_error_energy_ts = np.zeros((len(basis), len(function)))
 abs_error_tbr_energy = np.zeros((len(basis), len(function)))
 abs_error_storage_energy = np.zeros((len(basis), len(function)))
 abs_error_sol_conv_eff = np.zeros((len(basis), len(function)))
-dft_sol_conv_eff = np.zeros((len(basis), len(function)))
+dft_sol_conv_eff = np.zeros((len(basis), len(function)-1))
 
 for i in range(len(basis)):
     for j in range(len(function)):
@@ -53,7 +53,7 @@ for i in range(len(basis)):
         df_temp = df_dft[(df_dft['basis'] == basis[i]) & (df_dft['function'] == function[j])]
 
 
-        dft_sol_conv_eff[i][j] = df_temp['solar_conversion_efficiency'].values[0]
+        
         abs_error_energy_prod[i][j] = df_temp['energy_prod'] - true_energy_prod
         abs_error_energy_reac[i][j] = df_temp['energy_reac'] - true_energy_reac
         abs_error_energy_ts[i][j] = df_temp['energy_ts'] - true_energy_ts
@@ -66,6 +66,7 @@ for i in range(len(basis)):
             abs_error_osc_prod[i][j] = np.nan
             abs_error_osc_reac[i][j] = np.nan
             continue
+        dft_sol_conv_eff[i][j] = df_temp['solar_conversion_efficiency'].values[0]
         abs_error_osc_prod[i][j] = df_temp['osc_prod'][0][0] - true_osc_prod
         abs_error_osc_reac[i][j] = df_temp['osc_reac'][0][0] - true_osc_reac
         abs_error_wavelength_prod[i][j] = df_temp['wavelength_prod'][0][0] - true_wavelength_prod
