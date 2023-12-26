@@ -210,7 +210,13 @@ def standardize(data):
     # Standardize the data
     return (data - mu) / std
 
-data_full = np.array([standardize(abs_error_wavelength_prod), standardize(abs_error_wavelength_reac), standardize(abs_error_storage_energy), standardize(abs_error_tbr_energy), standardize(abs_error_sol_conv_eff), standardize(abs_error_osc_prod), standardize(abs_error_osc_reac)]).transpose(1,2,0)
+data_full = np.array([standardize(abs_error_wavelength_prod), 
+                      standardize(abs_error_wavelength_reac), 
+                      standardize(abs_error_storage_energy), 
+                      standardize(abs_error_tbr_energy), 
+                      standardize(abs_error_sol_conv_eff), 
+                      standardize(abs_error_osc_prod), 
+                      standardize(abs_error_osc_reac)]).transpose(1,2,0)
 
 
 
