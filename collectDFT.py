@@ -9,7 +9,7 @@ from calc_sce import *
 
 
 
-verbose = True
+verbose = False
 # File paths
 # DFT
 dft_path_es = '/groups/kemi/obel/azobenzene/compchem/benchmark/esDynamics/done/'
@@ -125,6 +125,7 @@ def collectAll():
             sce = -1
             # print('No TS file found for functional: {} and basis set: {}'.format(function, basis))
         else: sce = SCE(storage_energy,tbr_energy,wavelength_prod[0],osc_prod[0])
+        if sce < 1: print('Solar Conversion Efficiency: {}, Storage Energy: {}, TBR Energy: {}, Wavelength: {}, Oscillator: {}'.format(sce, storage_energy, tbr_energy, wavelength_prod[0], osc_prod[0]))
         if verbose: print('Solar Conversion Efficiency: {}'.format(sce))
 
         # Append to dataframe using concat
