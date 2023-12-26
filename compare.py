@@ -222,7 +222,7 @@ for i in range(len(properties)):
     # print(properties[i])
     data = eval('abs_error_'+properties[i])
     # print(data)
-    std_data = standardize(data_full)
+    std_data = standardize(data)
     # print(std_data)
     sns.heatmap(std_data, annot=True, ax=ax, xticklabels=function, yticklabels=basis, cmap='plasma', fmt='.2f')
     ax.set_title('Standardized Absolute Error for '+properties[i])
@@ -234,7 +234,7 @@ for i in range(len(properties)):
 
 
 # fill nan values with 0
-data = np.nan_to_num(data_full)
+data = np.nan_to_num(data)
 
 # Calculate the RMSE for each combination of basis and functional
 RMSE = np.zeros((len(basis), len(function)))
