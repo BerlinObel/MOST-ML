@@ -45,7 +45,7 @@ abs_error_energy_ts = np.zeros((len(basis), len(function)))
 abs_error_tbr_energy = np.zeros((len(basis), len(function)))
 abs_error_storage_energy = np.zeros((len(basis), len(function)))
 abs_error_sol_conv_eff = np.zeros((len(basis), len(function)))
-dft_sol_conv_eff = np.zeros((len(basis), len(function)-1))
+dft_sol_conv_eff = np.zeros((len(basis), len(function)))
 
 for i in range(len(basis)):
     for j in range(len(function)):
