@@ -20,7 +20,6 @@ if xtb_compare:
 
 # Initial files to collect
 reac_files = glob.glob(dft_path + 'react/azo_r_*.out')
-print(reac_files)
 
 # Define function to read functional and basis set from file name
 def read_functional_and_basis(file):
@@ -132,7 +131,7 @@ def collectAll():
             # print('No TS file found for functional: {} and basis set: {}'.format(function, basis))
         if function == 'B2PLYP' : sce = 0
         else: sce = calculate_SCE(storage_energy,tbr_energy,wavelength_reac[0],wavelength_prod[0],osc_reac[0],osc_prod[0])
-        if sce < 1: print('Solar Conversion Efficiency: {}, Storage Energy: {}, TBR Energy: {}, Wavelength: {}, Oscillator: {}'.format(sce, storage_energy, tbr_energy, wavelength_prod[0], osc_prod[0]))
+        # if sce < 1: print('Solar Conversion Efficiency: {}, Storage Energy: {}, TBR Energy: {}, Wavelength: {}, Oscillator: {}'.format(sce, storage_energy, tbr_energy, wavelength_prod[0], osc_prod[0]))
         if verbose: print('Solar Conversion Efficiency: {}'.format(sce))
 
         # Append to dataframe using concat
