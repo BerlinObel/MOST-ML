@@ -181,6 +181,8 @@ for i in properties:
     ax.set_title('Absolute Error for '+i)
     ax.set_xlabel('Functional')
     ax.set_ylabel('Basis')
+    #save data as csv
+    np.savetxt('abs_error_'+i+'.csv', np.abs(eval('abs_error_'+i)), delimiter=',')
     plt.savefig('abs_error_'+i+'.png', dpi=300)
     plt.close()
     ig, ax = plt.subplots(figsize=(10,10))
@@ -188,6 +190,7 @@ for i in properties:
     ax.set_title('Error for '+i)
     ax.set_xlabel('Functional')
     ax.set_ylabel('Basis')
+    np.savetxt('error_'+i+'.csv', eval('abs_error_'+i), delimiter=',')
     plt.savefig('error_'+i+'.png', dpi=300)
     plt.close()
 
@@ -255,6 +258,8 @@ for i in range(len(properties)):
     ax.set_title('Standardized Absolute Error for '+properties[i])
     ax.set_xlabel('Functional')
     ax.set_ylabel('Basis')
+    #save data as csv
+    np.savetxt('standardized_abs_error_'+properties[i]+'.csv', std_data, delimiter=',')
     plt.savefig('standardized_abs_error_'+properties[i]+'.png', dpi=300)
     plt.close()
 
@@ -282,6 +287,8 @@ sns.heatmap(RMSE, annot=True, ax=ax, xticklabels=function, yticklabels=basis, cm
 ax.set_title('RMSE for all properties')
 ax.set_xlabel('Functional')
 ax.set_ylabel('Basis')
+#save data as csv
+np.savetxt('RMSE.csv', RMSE, delimiter=',')
 plt.savefig('RMSE.png', dpi=300)
 plt.close()
 
