@@ -111,8 +111,8 @@ def collectAll():
         energy_ts = 120 / 2625.5
 
         # Calculate SCE
-        tbr_energy = energy_prod - energy_reac
-        storage_energy = energy_prod - energy_ts
+        storage_energy = energy_prod - energy_reac
+        tbr_energy = energy_prod - energy_ts
         if verbose:
             print(tbr_energy, storage_energy)
 
