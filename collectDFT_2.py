@@ -23,7 +23,7 @@ if verbose:
 
 def read_hash(file):
     file = file.split('_')
-    hash = file[1]
+    hash = file[2]
     return hash
 
 # Get all the files for a given basis set and functional
