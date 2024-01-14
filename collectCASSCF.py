@@ -58,7 +58,7 @@ energy_reac = -collectCASSCF(path_r)
 energy_ts = -collectCASSCF(path_ts)
 tbr_energy = energy_ts - energy_prod
 storage_energy = energy_prod - energy_reac
-sce = SCE(storage_energy,tbr_energy,wavelength_prod[0],osc_prod[0])
+sce = calculate_SCE(storage_energy,tbr_energy,wavelength_reac[0],wavelength_prod[0],osc_reac[0],osc_prod[0])
 # Print all nice and pretty
 print('File: {}'.format(file))
 print('Function: {}'.format(function))

@@ -87,6 +87,10 @@ def calculate_SCE(storage_energy_Hartree, reaction_barrier_kJ, excitation_wavele
     :param total_solar_power: Total solar power hitting the Earth's surface (in W).
     :return: Solar Conversion Efficiency (SCE) as a percentage.
     """
+    # chech if reaction barrier is given in Hartree or kJ/mol
+    if reaction_barrier_kJ < 5:
+        reaction_barrier_kJ = reaction_barrier_kJ * 2625.5
+
     # Convert storage energy from Hartree to kJ/mol
     storage_energy_kJ = storage_energy_Hartree * 2625.5
     

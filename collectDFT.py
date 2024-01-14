@@ -7,16 +7,19 @@ import glob
 
 from calc_sce import *
 
-
-
+xtb_compare = False
 verbose = False
 # File paths
 # DFT
 dft_path_es = '/groups/kemi/obel/azobenzene/compchem/benchmark/esDynamics/done/'
 dft_path = '/groups/kemi/obel/azobenzene/compchem/done/'
 
+if xtb_compare:
+    dft_path_es = '/groups/kemi/obel/dft_calc/esDynamics/'
+    dft_path = '/groups/kemi/obel/dft_calc/done/outfiles/'
+
 # Initial files to collect
-reac_files = glob.glob(dft_path + 'react/azo_r_*.out')
+reac_files = glob.glob(dft_path + 'azo_r_*.out')
 
 
 # Define function to read functional and basis set from file name
@@ -125,7 +128,7 @@ def collectAll():
             sce = -1
             # print('No TS file found for functional: {} and basis set: {}'.format(function, basis))
         if function == 'B2PLYP' : continue
-        else: sce = SCE(storage_energy,tbr_energy,wavelength_prod[0],osc_prod[0])
+        else: sce = calculate_SCE(storage_energy,tbr_energy,wavelength_reac[0],wavelength_prod[0],osc_reac[0],osc_prod[0])
         if sce < 1: print('Solar Conversion Efficiency: {}, Storage Energy: {}, TBR Energy: {}, Wavelength: {}, Oscillator: {}'.format(sce, storage_energy, tbr_energy, wavelength_prod[0], osc_prod[0]))
         if verbose: print('Solar Conversion Efficiency: {}'.format(sce))
 
@@ -135,6 +138,7 @@ def collectAll():
 
 # Run function
 df = collectAll()
+
 
 # Save dataframe
 df.to_pickle('dft_results.pkl')
