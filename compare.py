@@ -68,7 +68,10 @@ for i in range(len(basis)):
         print(basis[i], function[j])
         df_temp = df_dft[(df_dft['basis'] == basis[i]) & (df_dft['function'] == function[j])]
 
-        # print(df_temp)
+        print(df_temp)
+        print(df_temp['osc_prod'])
+        print(df_temp['osc_reac'][0])
+        print(df_temp['wavelength_prod'][0][0])
         abs_error_energy_prod[i][j] = df_temp['energy_prod'] - true_energy_prod
         abs_error_energy_reac[i][j] = df_temp['energy_reac'] - true_energy_reac
         abs_error_energy_ts[i][j] = df_temp['energy_ts'] - true_energy_ts
