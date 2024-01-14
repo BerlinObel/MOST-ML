@@ -142,3 +142,9 @@ df = collectAll()
 
 # Save dataframe
 df.to_pickle('dft_results.pkl')
+
+print('Done!')
+print('Dataframe saved to dft_results.pkl')
+print('Dataframe shape: {}'.format(df.shape))
+print('Dataframe columns: {}'.format(df.columns))
+print('Dataframe head: {}'.format(df.head()))
