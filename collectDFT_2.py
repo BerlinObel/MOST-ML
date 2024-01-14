@@ -108,11 +108,11 @@ def collectAll():
             print(energy_prod, energy_reac)
 
         # Transition state data was not collected so set to 120 to allow for calculation of SCE
-        energy_ts = 120 / 2625.5
+        
 
         # Calculate SCE
         storage_energy = energy_prod - energy_reac
-        tbr_energy = energy_prod - energy_ts
+        tbr_energy = 120/2625.5
         if verbose:
             print(tbr_energy, storage_energy)
 
