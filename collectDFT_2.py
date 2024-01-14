@@ -96,8 +96,11 @@ def collectAll():
             osc_prod = ['None']
             wavelength_prod = ['None']
 
+        if prod != 'None':
+            energy_prod = collectDFT(prod)
+        else:   
+            energy_prod = ['None']
         # Read DFT data
-        energy_prod = collectDFT(prod)
         energy_reac = collectDFT(file)
         if verbose:
             print(energy_prod, energy_reac)
