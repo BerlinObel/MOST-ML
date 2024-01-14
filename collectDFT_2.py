@@ -30,7 +30,7 @@ def read_hash(file):
 def get_files(hash):
     es_reac = glob.glob(dft_path_es + 'azo_'+hash+'_r_'+'*.out')
     es_prod = glob.glob(dft_path_es + 'azo_'+hash+'_p_'+'*.out')
-    prod = glob.glob(dft_path + 'prod/azo_'+hash+'_p_'+'*.out')
+    prod = glob.glob(dft_path + 'azo_'+hash+'_p_'+'*.out')
     
     if not es_reac:
         es_reac = ['None']
