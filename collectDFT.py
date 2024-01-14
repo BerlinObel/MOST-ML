@@ -19,8 +19,8 @@ if xtb_compare:
     dft_path = '/groups/kemi/obel/dft_calc/done/outfiles/'
 
 # Initial files to collect
-reac_files = glob.glob(dft_path + 'azo_r_*.out')
-
+reac_files = glob.glob(dft_path + 'react/azo_r_*.out')
+print(reac_files)
 
 # Define function to read functional and basis set from file name
 def read_functional_and_basis(file):
