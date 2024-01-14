@@ -93,8 +93,11 @@ def collectAll():
     # Initialize dataframe
     df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy', 'solar_conversion_efficiency'])
     # Collect files
+    print('Collecting files' )
     for file in reac_files:
+        print(file)
         function, basis = read_functional_and_basis(file)
+
         if basis == 'pc-3' or basis == 'pc-4' or basis == 'aug-pc-3' or basis == 'aug-pc-4' or basis == 'aug-pc-2': continue
         if verbose: print('Collecting files for functional: {} and basis set: {}'.format(function, basis))
         es_reac, es_prod, prod, ts = get_files(function, basis)
@@ -127,7 +130,7 @@ def collectAll():
         elif energy_ts == -1:
             sce = -1
             # print('No TS file found for functional: {} and basis set: {}'.format(function, basis))
-        if function == 'B2PLYP' : continue
+        if function == 'B2PLYP' : sce = 0
         else: sce = calculate_SCE(storage_energy,tbr_energy,wavelength_reac[0],wavelength_prod[0],osc_reac[0],osc_prod[0])
         if sce < 1: print('Solar Conversion Efficiency: {}, Storage Energy: {}, TBR Energy: {}, Wavelength: {}, Oscillator: {}'.format(sce, storage_energy, tbr_energy, wavelength_prod[0], osc_prod[0]))
         if verbose: print('Solar Conversion Efficiency: {}'.format(sce))
