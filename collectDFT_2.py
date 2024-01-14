@@ -8,7 +8,7 @@ import glob
 from calc_sce import *
 
 
-verbose = False
+verbose = True
 # File paths
 # DFT
 
@@ -17,6 +17,9 @@ dft_path = '/groups/kemi/obel/dft_calc/done/outfiles/'
 
 # Initial files to collect
 reac_files = glob.glob(dft_path + '*_r_*.out')
+
+if verbose:
+    print(reac_files)
 
 def read_hash(file):
     file = file.split('_')
@@ -27,12 +30,9 @@ def read_hash(file):
 def get_files(hash):
     es_reac = glob.glob(dft_path_es + 'azo_'+hash+'_r_'+'*.out')
     es_prod = glob.glob(dft_path_es + 'azo_'+hash+'_p_'+'*.out')
-
     prod = glob.glob(dft_path + 'prod/azo_'+hash+'_p_'+'*.out')
-
     
     if not es_reac:
-        print(es_reac)
         es_reac = ['None']
     if not es_prod: 
         es_prod = ['None']
@@ -75,7 +75,7 @@ def collectES(file):
 # df columns: file, hash, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy, solar_conversion_efficiency
 def collectAll():
     # Initialize dataframe
-    df = pd.DataFrame(columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy', 'solar_conversion_efficiency'])
+    df = pd.DataFrame(columns=['file', 'hash', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy', 'solar_conversion_efficiency'])
     # Collect files
     for file in reac_files:
         hash = read_hash(file)
@@ -115,7 +115,7 @@ def collectAll():
         sce = calculate_SCE(storage_energy,tbr_energy,wavelength_reac[0],wavelength_prod[0],osc_reac[0],osc_prod[0])
 
         # Append to dataframe using concat
-        df = pd.concat([df, pd.DataFrame([[file, hash, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy, sce]], columns=['file', 'function', 'basis', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy', 'solar_conversion_efficiency'])])
+        df = pd.concat([df, pd.DataFrame([[file, hash, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy, sce]], columns=['file', 'hash', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy', 'solar_conversion_efficiency'])])
     return df
 
 # Run function
