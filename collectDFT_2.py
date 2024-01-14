@@ -120,7 +120,7 @@ def collectAll():
         if prod != 'None' and es_prod != 'None' and es_reac != 'None':
             sce = calculate_SCE(storage_energy,tbr_energy,wavelength_reac[0],wavelength_prod[0],osc_reac[0],osc_prod[0])
         else:
-            sce = 0
+            sce = -0.1
         if verbose:
             # Print results to screen nicely
             print('File:', file)
