@@ -117,7 +117,7 @@ def collectAll():
             print(tbr_energy, storage_energy)
 
         # Calculate solar conversion efficiency
-        if prod != 'None' or es_prod != 'None' or es_reac != 'None':
+        if prod != 'None' and es_prod != 'None' and es_reac != 'None':
             sce = calculate_SCE(storage_energy,tbr_energy,wavelength_reac[0],wavelength_prod[0],osc_reac[0],osc_prod[0])
         else:
             sce = 0
