@@ -7,9 +7,14 @@ import os
 # print all of columns in pandas dataframe
 pd.set_option('display.max_columns', None)
 
+# Get the path to the directory where script is run from
+path = os.getcwd()
+path_dft = path + '/dft_results.pkl'
+path_casscf = path + '/casscf_results.pkl'
+
 # Read in the dataframes
-df_dft = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/dft_results.pkl')
-df_casscf = pd.read_pickle('/groups/kemi/obel/azobenzene/compchem/comparison/casscf_results.pkl')
+df_dft = pd.read_pickle(path_dft)
+df_casscf = pd.read_pickle(path_casscf)
 
 # print(df_dft.columns)
 # print(df_casscf.columns)
