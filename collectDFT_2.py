@@ -108,7 +108,7 @@ def collectAll():
             print(energy_prod, energy_reac)
 
         # Transition state data was not collected so set to 120 to allow for calculation of SCE
-        energy_ts = 120
+        energy_ts = 120 / 2625.5
 
         # Calculate SCE
         tbr_energy = energy_prod - energy_reac
@@ -118,7 +118,20 @@ def collectAll():
 
         # Calculate solar conversion efficiency
         sce = calculate_SCE(storage_energy,tbr_energy,wavelength_reac[0],wavelength_prod[0],osc_reac[0],osc_prod[0])
-
+        if verbose:
+            # Print results to screen nicely
+            print('File:', file)
+            print('Hash:', hash)
+            print('Osc Prod:', osc_prod)
+            print('Wavelength Prod:', wavelength_prod)
+            print('Osc Reac:', osc_reac)
+            print('Wavelength Reac:', wavelength_reac)
+            print('Energy Prod:', energy_prod)
+            print('Energy Reac:', energy_reac)
+            print('TBR Energy:', tbr_energy)
+            print('Storage Energy:', storage_energy)
+            print('SCE:', sce)
+            print()
         # Append to dataframe using concat
         df = pd.concat([df, pd.DataFrame([[file, hash, osc_prod, wavelength_prod, osc_reac, wavelength_reac, energy_prod, energy_reac, energy_ts, tbr_energy, storage_energy, sce]], columns=['file', 'hash', 'osc_prod', 'wavelength_prod', 'osc_reac', 'wavelength_reac', 'energy_prod', 'energy_reac', 'energy_ts', 'tbr_energy', 'storage_energy', 'solar_conversion_efficiency'])])
     return df
