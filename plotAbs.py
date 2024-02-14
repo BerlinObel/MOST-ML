@@ -142,7 +142,7 @@ def plot_abs():
     # Plot reactant absorption spectra
     fig, ax = plt.subplots(figsize=(16,16))
     plt.title('Absorption spectra')
-    plt.xlabel('Wave length (nm)')
+    plt.xlabel('Wavelength (nm)', fontsize=20)
     plt.ylabel('Intensity (arb. units)')
 
     for i in range(len(abs_df)):
@@ -168,7 +168,7 @@ def plot_abs():
     # Plot product absorption spectra
     fig, ax = plt.subplots(figsize=(16,16))
     plt.title('Absorption spectra')
-    plt.xlabel('Wave length (nm)')
+    plt.xlabel('Wavelength (nm)', fontsize=20)
     plt.ylabel('Intensity (arb. units)')
     for i in range(len(abs_df)):
         print(i)
@@ -194,7 +194,7 @@ def plot_abs_prod():
     # Plot Wavelength vs. Oscillator strength as vertical lines
     fig, ax = plt.subplots(figsize=(16,16))
     plt.title('cis-Azobenzene absorption spectra')
-    plt.xlabel('Wave length (nm)')
+    plt.xlabel('Wavelength (nm)', fontsize=20)
     plt.ylabel('oscillator strength')
 
     print('dft')
@@ -255,9 +255,9 @@ def reference_abs():
 
 def plot_abs_by_functional(basis):
     # Plot reactant absorption spectra
-    fig, ax = plt.subplots(figsize=(12,12),dpi=300)
-    plt.title('trans-Azobenzene absorption spectra')
-    plt.xlabel('Wave length (nm)')
+    fig, ax = plt.subplots(figsize=(12,12),dpi=100)
+    plt.title('trans-Azobenzene absorption spectra',fontsize=20)
+    plt.xlabel('Wavelength (nm)', fontsize=20)
     plt.ylabel('Intensity')
 
     reactant_ref, product_ref = reference_abs()
@@ -290,14 +290,16 @@ def plot_abs_by_functional(basis):
         sns.lineplot(x=energy_values,y=broadened_intensities_reactant,label=f'{function}, {basis}',color=colors[color_idx],linestyle=line_styles[0])
         color_idx += 1
     # remove legend
-    
+    plt.xticks(fontsize=20)
+    plt.yticks(fontsize=20)
+    plt.legend(fontsize=16)
     plt.xlim(270,900)
     plt.savefig(f'abs_plot/basis_reac/reactant_abs_{basis}.pdf')
 
     # Plot product absorption spectra
-    fig, ax = plt.subplots(figsize=(12,12),dpi=300)
-    plt.title('cis-Azobenzene absorption spectra')
-    plt.xlabel('Wave length (nm)')
+    fig, ax = plt.subplots(figsize=(12,12),dpi=100)
+    plt.title('cis-Azobenzene absorption spectra',fontsize=20)
+    plt.xlabel('Wavelength (nm)', fontsize=20)
     plt.ylabel('Intensity')
 
     sns.lineplot(x=energy_values_ref,y=product_ref,label=f'CASSCF',color=colors[0],linestyle=line_styles[1])
@@ -320,16 +322,18 @@ def plot_abs_by_functional(basis):
         energy_values = 1239.8/energy_values
         sns.lineplot(x=energy_values,y=broadened_intensities_product,label=f'{function}, {basis}',color=colors[color_idx],linestyle=line_styles[0])
         color_idx += 1
-
+    plt.xticks(fontsize=20)
+    plt.yticks(fontsize=20)
+    plt.legend(fontsize=16)
     plt.xlim(270,900)
     plt.savefig(f'abs_plot/basis_prod/product_abs_{basis}.pdf')
 
 
 def plot_abs_by_basis_set(functional):
     # Plot reactant absorption spectra
-    fig, ax = plt.subplots(figsize=(12,12),dpi=300)
-    plt.title('trans-Azobenzene Absorption spectra')
-    plt.xlabel('Wave length (nm)')
+    fig, ax = plt.subplots(figsize=(12,12),dpi=100)
+    plt.title('trans-Azobenzene Absorption spectra',fontsize=20)
+    plt.xlabel('Wavelength (nm)', fontsize=20)
     plt.ylabel('Intensity')
 
     reactant_ref, product_ref = reference_abs()
@@ -354,14 +358,17 @@ def plot_abs_by_basis_set(functional):
         sns.lineplot(x=energy_values,y=broadened_intensities_reactant,label=f'{functional}, {basis}',color=colors[color_idx],linestyle=line_styles[0])
         color_idx += 1
     # remove legend
-    
+    # make text larger
+    plt.xticks(fontsize=20)
+    plt.yticks(fontsize=20)
+    plt.legend(fontsize=16)
     plt.xlim(270,900)
     plt.savefig(f'abs_plot/func_reac/reactant_abs_{functional}.pdf')
 
     # Plot product absorption spectra
-    fig, ax = plt.subplots(figsize=(12,12),dpi=300)
-    plt.title('cis-Azobenzene Absorption spectra')
-    plt.xlabel('Wave length (nm)')
+    fig, ax = plt.subplots(figsize=(12,12),dpi=100)
+    plt.title('cis-Azobenzene Absorption spectra',fontsize=20)
+    plt.xlabel('Wavelength (nm)', fontsize=20)
     plt.ylabel('Intensity')
 
     sns.lineplot(x=energy_values,y=product_ref,label=f'CASSCF',color=colors[0],linestyle=line_styles[1])
@@ -383,6 +390,9 @@ def plot_abs_by_basis_set(functional):
         energy_values = 1239.8/energy_values
         sns.lineplot(x=energy_values,y=broadened_intensities_product,label=f'{functional}, {basis}',color=colors[color_idx],linestyle=line_styles[0])
         color_idx += 1
+    plt.xticks(fontsize=20)
+    plt.yticks(fontsize=20)
+    plt.legend(fontsize=16)
 
     plt.xlim(270,900)
     plt.savefig(f'abs_plot/func_prod/product_abs_{functional}.pdf')
@@ -393,11 +403,14 @@ def plot_abs_by_basis_set(functional):
 
 
 
-for functional in abs_df['function'].unique():
-    if functional == 'B2PLYP': continue
-    if functional == 'casscf': continue
-    plot_abs_by_basis_set(functional)
+# for functional in abs_df['function'].unique():
+#     if functional == 'B2PLYP': continue
+#     if functional == 'casscf': continue
+#     plot_abs_by_basis_set(functional)
 
-for basis in abs_df['basis'].unique():
-    if basis == 'aug-cc-pVTZ': continue
-    plot_abs_by_functional(basis)
+# for basis in abs_df['basis'].unique():
+#     if basis == 'aug-cc-pVTZ': continue
+#     plot_abs_by_functional(basis)
+
+plot_abs_by_functional('aug-cc-pVDZ')
+plot_abs_by_basis_set('CAM-B3LYP-D4')
